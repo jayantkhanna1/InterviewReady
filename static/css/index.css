@@ -1,3 +1,95 @@
 *{
-    background-color: red;
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: #F7F8FA;
+}
+#header{
+    height: 75px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo_color{
+    background: linear-gradient(90deg, #57CDFD 0%, #9CA7EB 45.83%, #FC8ECB 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#header p {
+    font-size: 25px;
+    user-select: none;
+    color: #667286;
+    font-family: 'Sans Serif', sans-serif;
+    font-weight: 500;
+}
+#main_body_heading{
+    font-size: 60px;
+    margin-bottom: 30px;
+    user-select: none;
+    color: #667286;
+    font-family: 'Sans Serif', sans-serif;
+    font-weight: 500;
+}
+#main_body{
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+    flex-direction: column;
+}
+#central_text{
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 20px;
+    color: #555e6d;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 100;
+    line-height: 1.7;
+    letter-spacing: 0.1px;
+}
+#chatGptKey{
+    width: 701px;
+    margin-left: -89px;
+    margin-top: 25px;
+    border: none;
+    outline: none;
+    padding: 23px 25px;
+    border-radius: 7px 0 0 7px;
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+    color: #555e6d;
+    margin-bottom: 30px;
+    font-weight: 100;
+    line-height: 1.7;
+    letter-spacing: 0.1px;
+}
+#chatGptKey:focus{
+    box-shadow: 0px 0px 0px 2px #57CDFD;
+}
+#chatGptKey::placeholder{
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+    color: #9d9d9d;
+    margin-bottom: 30px;
+    font-weight: 100;
+    line-height: 1.7;
+    letter-spacing: 0.1px;
+}
+#chatgpt_submit {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    height: 80px;
+    padding: 31px 51px;
+    border-radius: 0 7px 7px 0;
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+    background-color: #4285f4;
+    color: white;
+    margin-left: -3px;
+    margin-top: -40px;
 }

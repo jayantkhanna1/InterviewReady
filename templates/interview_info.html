@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>InterviewReady</title>
+
+    <!-- Links -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/information.css' %}">
+    <link rel = "icon" href =  "{% static 'images/logo.png' %}" type = "image/x-icon"> 
+</head>
+<body>
+    <section id="header">
+        <p>Interview <span class="logo_color">Ready</span></p>
+    </section>
+    <section id="information_form">
+        <p>Enter all relevant information</p>
+        <form action="interview_information" method="POST" enctype="multipart/form-data" id="form">
+            {% csrf_token %}
+            <div id="form_inner">
+                <div id="job_description">
+                    <p class="info_heading">Job Description:</p>
+                    <textarea name="job_description" id="job_description_textarea" cols="30" rows="10" placeholder="Enter Job Description" required></textarea>
+                </div>
+                <div id="right_info">
+                    <div class="container_of_select">
+                        <p class="info_heading">Interview Type:</p>
+                        <select name="interview_type" id="interview_type" required>
+                            <option value="basic">Basic Telephonic Interview</option>
+                            <option value="technical">Technical Interview</option>
+                            <option value="hr">Hr/Behavioural Interview</option>
+                        </select>
+                    </div>
+                    <div class="container_of_select">
+                        <p class="info_heading">Difficulty Level:</p>
+                        <select name="difficulty" id="difficulty" required>
+                            <option value="easy">Fresher</option>
+                            <option value="medium">Intermediate</option>
+                            <option value="hard">Expert</option>
+                        </select>
+                    </div>
+                    <div class="container_of_select">
+                        <p class="info_heading">Special Tags (Comma separated):</p>
+                        <input id="special_tags" name="special_tags" type="text" placeholder="Python, AWS, Django, Nodejs....">
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Next" id="submit_interview_info">
+        </form>
+    </section>
+</body>
+</html>

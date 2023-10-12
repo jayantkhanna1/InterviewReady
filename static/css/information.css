@@ -1,0 +1,143 @@
+#information_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+#information_form p{
+    font-size: 25px;
+    user-select: none;
+    color: #667286;
+    font-family: 'Sans Serif', sans-serif;
+    font-weight: 500;
+}
+#form_inner{
+    display: flex;
+    margin-top: 90px;
+    justify-content: center;
+    align-items: space-between;
+    width: 100%;
+}
+.info_heading{
+    font-size: 20px !important;
+}
+textarea{
+    padding: 15px 25px;
+    height: 448px;
+    width: 822px;
+    outline: none;
+    border: none;
+    resize: none;
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 16px;
+    color: #555e6d;
+    margin-bottom: 30px;
+    font-weight: 100;
+    line-height: 1.7;
+    letter-spacing: 0.1px;
+    border-radius: 8px;
+}
+#job_description{
+    margin-right: 50px;
+    margin-left: -100px;
+}
+#job_description p{
+    margin-bottom: 15px;
+}
+textarea::placeholder{
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 16px;
+    color: #9d9d9d;
+    margin-bottom: 30px;
+    font-weight: 100;
+    line-height: 1.7;
+    letter-spacing: 0.1px;
+}
+textarea:focus{
+    box-shadow: 0px 0px 0px 2px #93e1ff;
+}
+select{
+    padding: 15px 25px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    width: 320px;
+    height: 70px;
+    margin-top: 15px;
+    font-size: 16px;
+    background-color: white;
+}
+select:focus{
+    box-shadow: 0px 0px 0px 2px #93e1ff;
+}
+#right_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 545px;
+}
+#special_tags{
+    width: 266px;
+    margin-top: 25px;
+    border: none;
+    outline: none;
+    padding: 23px 25px;
+    border-radius: 8px;
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 16px;
+    color: #555e6d;
+    margin-bottom: 30px;
+    font-weight: 100;
+    line-height: 1.7;
+    letter-spacing: 0.1px;
+}
+#special_tags:focus{
+    box-shadow: 0px 0px 0px 2px #57CDFD;
+}
+#special_tags::placeholder{
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 16px;
+    color: #9d9d9d;
+    margin-bottom: 30px;
+    font-weight: 100;
+    line-height: 1.7;
+    letter-spacing: 0.1px;
+}
+#submit_interview_info{
+    border: none;
+    cursor: pointer;
+    outline: none;
+    height: 80px;
+    padding: 31px 51px;
+    border-radius: 8px;
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+    background-color: #4285f4;
+    color: white;
+    width: 1242px;
+    margin-left: -100px;
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+/* width */
+body::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+  }
+  
+  /* Track */
+body::-webkit-scrollbar-track {
+border-radius: 10px;
+background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+background: rgb(219, 219, 219);
+border-radius: 10px;
+}
+body{
+    overflow:auto;
+}
