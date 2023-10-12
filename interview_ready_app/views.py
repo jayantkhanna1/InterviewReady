@@ -9,3 +9,5 @@ load_dotenv()
 import json
 from django.core.mail import send_mail
 
+def index(request):
+    return render(request,'index.html')
