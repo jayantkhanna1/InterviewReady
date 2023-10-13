@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>InterviewReady</title>
+
+    <!-- Links -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/interview_begin.css' %}">
+    <link rel = "icon" href =  "{% static 'images/logo.png' %}" type = "image/x-icon"> 
+</head>
+<body>
+    <section id="header">
+        <p>Interview <span class="logo_color">Ready</span></p>
+    </section>
+
+
+    <section id="user_information">
+        <div id="inner_user_information">
+            <img src="{% static 'images/begin.png' %}" alt="">
+            <h3>Answer 7 Questions</h3>
+            <p id="info">Take a deep breath and feel assured.  <br>In just a moment, you'll encounter 7 questions tailored to the information you've provided earlier.</p>
+            <a href="javascript:void(0)" id="start_interview" onclick="ask_for_permission()">Start</a>
+        </div>
+    </section>
+
+    <section id="interview">
+        <div class="question_div">
+            <p class="question_number">1 <span class="lighter_color">/7</span></p>
+            <p class="question">Hello there how are you</p>
+            <div class="answer">
+                <textarea placeholder="Your Answer" readonly id="answer0"></textarea>
+                <img id="audiogif0" class="audiogif" src="../static/images/audiogif.gif" alt="">
+                
+            </div>
+            <div class="answer_area">
+                <div>
+                    <a href="javascript:void(0)"  onclick="startListening('answer0','startButton0','stopButton0','audiogif0')" class="speak_answer" id="startButton0"> Start Speaking</a>
+                    <a href="javascript:void(0)"  onclick="stopListening('answer0','startButton0','stopButton0','audiogif0')" class="speak_answer" id="stopButton0"> Stop Speaking</a>
+                    <a href="javascript:void(0)"  onclick="allowUserToType('answer0','startButton0','stopButton0','audiogif0')" class="type_answer"><svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.08594 15.4166H21.9193V2.58325H2.08594V15.4166ZM2.08594 17.1666C1.61927 17.1666 1.21094 16.9867 0.860938 16.627C0.510938 16.2673 0.335938 15.8638 0.335938 15.4166V2.58325C0.335938 2.11659 0.510938 1.70825 0.860938 1.35825C1.21094 1.00825 1.61927 0.833252 2.08594 0.833252H21.9193C22.3859 0.833252 22.7943 1.00825 23.1443 1.35825C23.4943 1.70825 23.6693 2.11659 23.6693 2.58325V15.4166C23.6693 15.8638 23.4943 16.2673 23.1443 16.627C22.7943 16.9867 22.3859 17.1666 21.9193 17.1666H2.08594ZM11.1276 6.22909H12.8776V4.47909H11.1276V6.22909ZM11.1276 9.87492H12.8776V8.12492H11.1276V9.87492ZM7.5401 6.22909H9.2901V4.47909H7.5401V6.22909ZM7.5401 9.87492H9.2901V8.12492H7.5401V9.87492ZM3.92344 9.87492H5.67344V8.12492H3.92344V9.87492ZM3.92344 6.22909H5.67344V4.47909H3.92344V6.22909ZM6.7526 13.5208H17.2526V11.7708H6.7526V13.5208ZM14.7443 9.87492H16.4943V8.12492H14.7443V9.87492ZM14.7443 6.22909H16.4943V4.47909H14.7443V6.22909ZM18.3318 9.87492H20.0818V8.12492H18.3318V9.87492ZM18.3318 6.22909H20.0818V4.47909H18.3318V6.22909ZM2.08594 15.4166V2.58325V15.4166Z" fill="currentColor"></path>
+                      </svg></a>
+                </div>
+                <a href="javascript:void(0)" onclick="getNextQuestion(1)" class="next"><img src="../static/images/arrow_right.png" alt=""></a>
+            </div>
+            <input type="hidden" readonly value="" id="confidence">
+        </div>
+    </section>
+
+    <input type="hidden" name="" id="questions" value="{{questions}}" readonly>
+    
+    <!-- Hidden csrf token -->
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" id="csrf_token">
+    <script src="{% static 'js/mic_and_speaker_permission.js' %}"></script>
+    <script src="{% static 'js/begin_interview.js' %}"></script>
+    
+</body>
+</html>

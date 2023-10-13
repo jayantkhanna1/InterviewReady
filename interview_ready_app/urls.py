@@ -9,6 +9,10 @@ urlpatterns = [
     path('saveChatGptKey',views.saveChatGptKey,name='saveChatGptKey'),
     path('interview_info',views.interview_info,name='interview_info'),
     path('home',views.index,name='home'),
+    path('interview_information',views.interview_information,name='interview_information'),
+    path('interview_begin',views.interview_begin,name='interview_begin'),
+    path('asr',views.asr,name='asr'),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
