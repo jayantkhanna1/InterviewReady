@@ -138,7 +138,15 @@ def interview_begin(request):
                 final_questions.append(question)
 
         print(final_questions)
-        return render(request,'interview_begin.html',{'questions':final_questions})
+        final_final_questions = []
+        for x in final_questions:
+            if '"' in x:
+                x = x.replace('"','')
+            if "'" in x:
+                x = x.replace("'",'')
+            final_final_questions.append(x)
+
+        return render(request,'interview_begin.html',{'questions':final_final_questions})
     else:
         return redirect('home')
     
@@ -163,6 +171,19 @@ def asr(request):
    
     # You can now process the audio file or respond with a success message
     return JsonResponse({'result': result['text']})
+
+def get_result_for_one_pair(request):
+    question = request.POST['question']
+    answer = request.POST['answer']
+    prompt = 'Question : '+str(question)+'\nAnswer: '+str(answer)+'\n\nIn Json format tell me grammar, clarity, confidence. If not sure aout something mark it as 0. All answers should be between 0 to 100. \nExample: {"grammar" : 40,"clarity" : 20,"confidence" : 0,"answer_score_based_on_question_according_to_interviewer" : 0,"any_additional_comments" : "Improve your..."}'
+    if "chatgpt_key_interview_ready" not in request.session:
+        return redirect('home')
+    api_key = request.session['chatgpt_key_interview_ready']
+    result,any_error = chatgpt(api_key,prompt)
+    if any_error:
+        url = reverse('home') + '?error=ChatGPT Key Expired'
+        return redirect(url)
+    return JsonResponse({'result': result})
 
 
 

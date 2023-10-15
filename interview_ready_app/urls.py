@@ -9,10 +9,10 @@ urlpatterns = [
     path('saveChatGptKey',views.saveChatGptKey,name='saveChatGptKey'),
     path('interview_info',views.interview_info,name='interview_info'),
     path('home',views.index,name='home'),
-    # path("home_chatgpt_error", views.index_with_chatgpt_error, name=""),
     path('interview_information',views.interview_information,name='interview_information'),
     path('interview_begin',views.interview_begin,name='interview_begin'),
     path('asr',views.asr,name='asr'),
+    path('getResultForOnePair',views.get_result_for_one_pair,name='getResultForOnePair'),
 
 ]
 

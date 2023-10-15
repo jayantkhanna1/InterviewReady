@@ -2,6 +2,7 @@ function begin_interview(microphone_and_speaker_permission){
     // Getting questions
     questions = document.getElementById("questions").value;
     questions = questions.replaceAll('\'', '"');
+    console.log(questions)
     questions = JSON.parse(questions);
 
     // Making visible
@@ -94,26 +95,34 @@ function stopListening(output_field,start_button,stop_button,audiogif) {
 }
   
 function getNextQuestion(question_number){
+  // Checking if user has answered previous questions before we move on
   prev_answer = document.getElementById("answer"+(question_number-1)).value;
   if (prev_answer == ""){
     document.getElementById("desc").innerHTML = "Please answer the question"
     launch_toast_correct()
     return;
   }
-
+  // Getting list of all questions
   questions = document.getElementById("questions").value;
   questions = questions.replaceAll('\'', '"');
   questions = JSON.parse(questions);
+
+  // Getting next question
   question = questions[question_number];
+
+  // Checking if we have reached the end of the interview
   if (question_number > 6){
+    // We have reached the end now we show final page
     document.getElementById('user_information').style.display = "none";
+
+    // Collecting all answers
     var answer_array = []
     for (var i=0;i<7;i++){
       answer_array[i] = document.getElementById('answer'+i).value
-      console.log(document.getElementById('answer'+i).value)
-      console.log(answer_array[i])
     }
     var ques_answer_pair = []
+
+    // Making questions answer pair
     for (var i=0;i<7;i++){
       var temp_jso = {
         "question" : questions[i],
@@ -123,26 +132,73 @@ function getNextQuestion(question_number){
     }
     console.log(ques_answer_pair)
 
+    // Showing 2nd last modal before loading final page
     document.getElementById('interview').style.display = "none";
     document.getElementById("final").style.display = "flex"
+
+    // Getting result for last answer before we show the final page
+    const formData = new FormData();
+    var final_answer = document.getElementById("answer6").value;
+    var final_question = questions[6];
+    formData.append('answer', final_answer);
+    formData.append('question', final_question);
+    csrf_token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+    formData.append('csrfmiddlewaretoken', csrf_token);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'getResultForOnePair', true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        data = JSON.parse(xhr.responseText);
+        console.log(data)
+        // Save this to the frontend
+        // document.getElementById(output_field).value = data['result'];
+      }
+    };
+    xhr.send(formData);
   }
   else{
+    // We have not reached the end yet so getting next question HTML
     html = get_HTML(questions,current_question = question_number);
+
     // getting old answers as they will be rewritten
     all_answers = document.getElementsByClassName("answer_textarea")
     answer = []
     for (var i=0;i<all_answers.length;i++){
       answer.push(all_answers[i].value)
     }
+
     document.getElementById("interview").innerHTML += html;
+
     // putting old answers back
     for (var i=0;i<answer.length;i++){
       console.log(answer[i])
       document.getElementById("answer"+i).value = answer[i]
     }
+
+    // Making question speak
     speak(question);
     const element = document.body;
     element.scrollIntoView({ behavior: "smooth", block: "end" });
+
+    // Getting result for the previous answer from the backend
+    prev_answer = document.getElementById("answer"+(question_number-1)).value;
+    prev_question = questions[question_number-1];
+    const formData = new FormData();
+    formData.append('answer', prev_answer);
+    formData.append('question', prev_question);
+    csrf_token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+    formData.append('csrfmiddlewaretoken', csrf_token);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'getResultForOnePair', true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        data = JSON.parse(xhr.responseText);
+        console.log(data)
+        // document.getElementById(output_field).value = data['result'];
+      }
+    };
+    xhr.send(formData);
+
   }
 }
 function get_HTML(questions,question_number){
