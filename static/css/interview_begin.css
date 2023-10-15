@@ -4,7 +4,7 @@
     align-items: center;
     height: 40vw;
 }
-#inner_user_information{
+#inner_user_information,#inner_final{
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -16,7 +16,7 @@
     /* transition-delay: 0.3s; */
     /* height: 700px; */
 }
-#inner_user_information h3{
+#inner_user_information h3,#inner_final h3{
     text-align: center;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -24,7 +24,7 @@
     font-family: 'Sans Serif', sans-serif;
     font-weight: 400;
 }
-#inner_user_information p{
+#inner_user_information p,#inner_final p{
     text-align: center;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -55,7 +55,7 @@
     border-radius: 8px;
     
 }
-#inner_user_information:hover{
+#inner_user_information:hover,#inner_final:hover{
     box-shadow: 0px 0px 20px 15px #dddddd;
 }
 
@@ -168,4 +168,11 @@
 }
 .answer textarea:focus{
     box-shadow: 0px 0px 0px 2px #57CDFD;
+}
+#final{
+    display: none;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    height: 40vw;
 }
