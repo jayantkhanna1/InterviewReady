@@ -166,3 +166,6 @@
     top: 33%;
     left: 30%;
 }
+.answer textarea:focus{
+    box-shadow: 0px 0px 0px 2px #57CDFD;
+}

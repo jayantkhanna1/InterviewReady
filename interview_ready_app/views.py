@@ -7,10 +7,20 @@ from dotenv import load_dotenv
 load_dotenv()
 import random
 import string
+import openai 
+from django.urls import reverse
 import whisper
 
 def index(request):
-    return render(request,'index.html')
+    data = {
+        "error_present" : False
+    }
+    if "error" in request.GET:
+        error = request.GET["error"]
+        data["error_present"] = True
+        data["error"] = error
+
+    return render(request,'index.html',{"data":data})
 
 def saveChatGptKey(request):
     chatgpt_key = request.POST['chatGptKey']
@@ -25,8 +35,20 @@ def interview_info(request):
     else:
         return redirect('home')
 
-def chatgpt(prompt):
-    return prompt
+def chatgpt(api_key,prompt):
+    try:
+        openai.api_key = api_key
+        message = prompt
+        messages = [{"role": "user", "content": message}]
+        chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        print(chat)
+        reply = chat.choices[0].message.content 
+        print(f"ChatGPT: {reply}") 
+        # message.append({"role": "assistant", "content": reply
+        return reply, False
+    except Exception as e:
+        print(e)
+        return e,True
 
 def interview_information(request):
     job_desc = request.POST['job_description']
@@ -61,28 +83,62 @@ def interview_information(request):
         # get 3 questions from the database and tell user to solve them. Integrate IDE later
         pass
     else:
-        initial_prompt = "Using this job description give exactly 4 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
+        initial_prompt = "Using this job description give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
         prompt = initial_prompt + "\n\n" + job_desc
     
-    result = chatgpt(prompt)
+    if "chatgpt_key_interview_ready" not in request.session:
+        return redirect('home')
+    api_key = request.session['chatgpt_key_interview_ready']
+    result,any_error = chatgpt(api_key,prompt)
+    if any_error:
+        url = reverse('home') + '?error=Invalid Chatgpt Key'
+        return redirect(url)
     request.session['questions_interview_ready'] = result  
 
     return redirect('interview_begin')
 
+def remove(string,substring):
+    result = ""
+    for char in string:
+        if char != substring:
+            result += char
+    return result
+
 def interview_begin(request):
     if "questions_interview_ready" in request.session:
         questions = request.session['questions_interview_ready']
-        print(questions)
-        temp_questions = [
-            "ques 1",
-            "ques 2",
-            "ques 3",
-            "ques 4",
-            "ques 5",
-            "ques 6",
-            "ques 7"
-        ]
-        return render(request,'interview_begin.html',{'questions':temp_questions})
+        final_questions = []
+        if "[" in questions:
+            new_question = ""
+            for x in questions:
+                if x == "[":
+                    flag = 1
+
+                elif x == "]":
+                    flag = 0
+
+                else:
+                    pass
+
+                if flag == 1:
+                    new_question +=x
+            # remove [ in string if it exists]
+            new_question = remove(new_question, "[")
+            new_question = new_question.split(',')
+            final_questions = new_question
+
+        else:
+        # another flow 
+            questions = questions.split("\n")
+            final_questions = []
+            for question in questions:
+                # if question has question number delete it 
+                if question[0].isdigit():
+                    question = question[2:]
+                final_questions.append(question)
+
+        print(final_questions)
+        return render(request,'interview_begin.html',{'questions':final_questions})
     else:
         return redirect('home')
     
