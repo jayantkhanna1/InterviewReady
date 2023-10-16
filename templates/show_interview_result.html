@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>InterviewReady</title>
+
+    <!-- Links -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/interview_result.css' %}">
+    <link rel="stylesheet" href="{% static 'css/interview_begin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/toast.css' %}">
+    <link rel = "icon" href =  "{% static 'images/logo.png' %}" type = "image/x-icon"> 
+</head>
+<body>
+    <section id="header">
+        <p>Interview <span class="logo_color">Ready<span style="font-size: 20px;">.ai</span></span></p>
+    </section>
+    <section id="circular_score">
+        <div id="overallscore">
+            <div class="circle_outer">
+                <div data-before="75%" class="progress-bar-overall" id="overallscore_inner">
+                    <progress value="75" min="0" max="100" style="visibility:hidden;height:0;width:0;">75%</progress>
+                </div>
+                <h2>Overall</h2>
+            </div>
+        </div>
+        <div id="subheading">
+            <h3>Score Breakdown</h3>
+        </div>
+        <div id="score_breaking">
+            <div class="circle_outer_scorebreak">
+                <div data-before="75%" class="progress-bar" id="grammar_score_inner">
+                    <progress value="75" min="0" max="100" style="visibility:hidden;height:0;width:0;">75%</progress>
+                </div>
+                <h2>Grammar</h2>
+            </div>
+            <div class="circle_outer_scorebreak">
+                <div data-before="75%" class="progress-bar" id="clarity_score_inner">
+                    <progress value="75" min="0" max="100" style="visibility:hidden;height:0;width:0;">75%</progress>
+                </div>
+                <h2>Clarity</h2>
+            </div>
+            <div class="circle_outer_scorebreak">
+                <div data-before="75%" class="progress-bar" id="confidence_score_inner">
+                    <progress value="75" min="0" max="100" style="visibility:hidden;height:0;width:0;">75%</progress>
+                </div>
+                <h2>Confidence</h2>
+            </div>
+            <div class="circle_outer_scorebreak">
+                <div data-before="75%" class="progress-bar" id="interviewer_score_inner">
+                    <progress value="75" min="0" max="100" style="visibility:hidden;height:0;width:0;">75%</progress>
+                </div>
+                <h2>Interviewer</h2>
+            </div>
+        </div>
+    </section>
+    <div id="subheading_insights">
+        <h3>Insights</h3>
+    </div>
+    <section id="interview">
+
+        <div class="question_div">
+            <p class="question_number">1 <span class="lighter_color">/7</span></p>
+            <p class="question">Hello there how are you</p>
+            <p class="answer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae explicabo soluta, est voluptatem illum minus ipsa in adipisci tempora, repudiandae voluptates commodi cum necessitatibus tenetur pariatur et optio aliquid doloribus.</p>
+            <div class="scores_insights">
+                <div class="grammar_score_outer">
+                    <div class="dot_1"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Grammar</div>
+                </div>
+                <div class="clarity_score_outer">
+                    <div class="dot_2"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Clarity</div>
+                </div>
+                <div class="confidence_score_outer">
+                    <div class="dot_3"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Confidence</div>
+                </div>
+                <div class="interviewer_score_outer">
+                    <div class="dot_4"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Interviewer</div>
+                </div>
+            </div>
+            <div class="advice">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, quasi. Perferendis blanditiis nobis eum enim cum dicta magni doloremque ut.
+            </div>
+        </div>
+
+        <div class="question_div">
+            <p class="question_number">1 <span class="lighter_color">/7</span></p>
+            <p class="question">Hello there how are you</p>
+            <p class="answer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae explicabo soluta, est voluptatem illum minus ipsa in adipisci tempora, repudiandae voluptates commodi cum necessitatibus tenetur pariatur et optio aliquid doloribus.</p>
+            <div class="scores_insights">
+                <div class="grammar_score_outer">
+                    <div class="dot_1"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Grammar</div>
+                </div>
+                <div class="clarity_score_outer">
+                    <div class="dot_2"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Clarity</div>
+                </div>
+                <div class="confidence_score_outer">
+                    <div class="dot_3"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Confidence</div>
+                </div>
+                <div class="interviewer_score_outer">
+                    <div class="dot_4"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Interviewer</div>
+                </div>
+            </div>
+            <div class="advice">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, quasi. Perferendis blanditiis nobis eum enim cum dicta magni doloremque ut.
+            </div>
+        </div>
+
+        <div class="question_div">
+            <p class="question_number">1 <span class="lighter_color">/7</span></p>
+            <p class="question">Hello there how are you</p>
+            <p class="answer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae explicabo soluta, est voluptatem illum minus ipsa in adipisci tempora, repudiandae voluptates commodi cum necessitatibus tenetur pariatur et optio aliquid doloribus.</p>
+            <div class="scores_insights">
+                <div class="grammar_score_outer">
+                    <div class="dot_1"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Grammar</div>
+                </div>
+                <div class="clarity_score_outer">
+                    <div class="dot_2"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Clarity</div>
+                </div>
+                <div class="confidence_score_outer">
+                    <div class="dot_3"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Confidence</div>
+                </div>
+                <div class="interviewer_score_outer">
+                    <div class="dot_4"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Interviewer</div>
+                </div>
+            </div>
+            <div class="advice">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, quasi. Perferendis blanditiis nobis eum enim cum dicta magni doloremque ut.
+            </div>
+        </div>
+
+        <div class="question_div">
+            <p class="question_number">1 <span class="lighter_color">/7</span></p>
+            <p class="question">Hello there how are you</p>
+            <p class="answer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae explicabo soluta, est voluptatem illum minus ipsa in adipisci tempora, repudiandae voluptates commodi cum necessitatibus tenetur pariatur et optio aliquid doloribus.</p>
+            <div class="scores_insights">
+                <div class="grammar_score_outer">
+                    <div class="dot_1"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Grammar</div>
+                </div>
+                <div class="clarity_score_outer">
+                    <div class="dot_2"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Clarity</div>
+                </div>
+                <div class="confidence_score_outer">
+                    <div class="dot_3"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Confidence</div>
+                </div>
+                <div class="interviewer_score_outer">
+                    <div class="dot_4"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Interviewer</div>
+                </div>
+            </div>
+            <div class="advice">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, quasi. Perferendis blanditiis nobis eum enim cum dicta magni doloremque ut.
+            </div>
+        </div>
+
+        <div class="question_div">
+            <p class="question_number">1 <span class="lighter_color">/7</span></p>
+            <p class="question">Hello there how are you</p>
+            <p class="answer">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae explicabo soluta, est voluptatem illum minus ipsa in adipisci tempora, repudiandae voluptates commodi cum necessitatibus tenetur pariatur et optio aliquid doloribus.</p>
+            <div class="scores_insights">
+                <div class="grammar_score_outer">
+                    <div class="dot_1"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Grammar</div>
+                </div>
+                <div class="clarity_score_outer">
+                    <div class="dot_2"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Clarity</div>
+                </div>
+                <div class="confidence_score_outer">
+                    <div class="dot_3"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Confidence</div>
+                </div>
+                <div class="interviewer_score_outer">
+                    <div class="dot_4"></div>
+                    <div class="score_inner_score">75%</div>
+                    <div class="score_tag">Interviewer</div>
+                </div>
+            </div>
+            <div class="advice">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, quasi. Perferendis blanditiis nobis eum enim cum dicta magni doloremque ut.
+            </div>
+        </div>
+        
+    </section>
+
+    
+
+</body>
+</html>

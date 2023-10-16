@@ -13,6 +13,8 @@ urlpatterns = [
     path('interview_begin',views.interview_begin,name='interview_begin'),
     path('asr',views.asr,name='asr'),
     path('getResultForOnePair',views.get_result_for_one_pair,name='getResultForOnePair'),
+    path('saveInterviewResult',views.save_interview_result,name='saveInterviewResult'),
+    path('showInterviewResult',views.show_interview_result,name='showInterviewResult'),
 
 ]
 

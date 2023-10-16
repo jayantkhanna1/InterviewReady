@@ -8,6 +8,7 @@ load_dotenv()
 import random
 import string
 import openai 
+import json
 from django.urls import reverse
 import whisper
 
@@ -175,7 +176,7 @@ def asr(request):
 def get_result_for_one_pair(request):
     question = request.POST['question']
     answer = request.POST['answer']
-    prompt = 'Question : '+str(question)+'\nAnswer: '+str(answer)+'\n\nIn Json format tell me grammar, clarity, confidence. If not sure aout something mark it as 0. All answers should be between 0 to 100. \nExample: {"grammar" : 40,"clarity" : 20,"confidence" : 0,"answer_score_based_on_question_according_to_interviewer" : 0,"any_additional_comments" : "Improve your..."}'
+    prompt = 'Question : '+str(question)+'\nAnswer: '+str(answer)+'\n\nIn Json format tell me grammar, clarity, confidence, score that interviewer would give to the answer and some comments on answer to improve chances of getting selected. If not sure about something mark it as 0. All marks should be between 0 to 100. \nExample: {"grammar" : 40,"clarity" : 20,"confidence" : 0,"answer_score_based_on_question_according_to_interviewer" : 0,"any_additional_comments" : "Improve your..."}'
     if "chatgpt_key_interview_ready" not in request.session:
         return redirect('home')
     api_key = request.session['chatgpt_key_interview_ready']
@@ -185,11 +186,18 @@ def get_result_for_one_pair(request):
         return redirect(url)
     return JsonResponse({'result': result})
 
+def save_interview_result(request):
+    question_answer_pair = request.POST['question_answer_pair']
+    print(question_answer_pair)
+    request.session['question_answer_pair'] = question_answer_pair
+    return JsonResponse({'data': "success"})
 
-
-
-
-# To be used during evaluation
-# prompt = 'Question : How are you?\nAnswer: I dont want to talk with you\n\nIn Json format tell me grammar, clarity, confidence. If not sure aout something mark it as 0. All answers should be between 0 to 100. \nExample: {"grammar" : 40,"clarity" : 20,"confidence" : 0}'
-
+def show_interview_result(request):
+    question_answer_pair = request.session['question_answer_pair']
+    question_answer_pair = question_answer_pair.replace("'",'"')
+    question_answer_pair = json.loads(question_answer_pair)
+    for x in question_answer_pair:
+        confidence_dict = json.loads(x["confidence"])
+        print(confidence_dict)
+    return render(request,'show_interview_result.html',{'question_answer_pair':question_answer_pair})
 
