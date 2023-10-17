@@ -15,6 +15,8 @@ urlpatterns = [
     path('getResultForOnePair',views.get_result_for_one_pair,name='getResultForOnePair'),
     path('saveInterviewResult',views.save_interview_result,name='saveInterviewResult'),
     path('showInterviewResult',views.show_interview_result,name='showInterviewResult'),
+    path('evaluate_result',views.evaluate_result,name='evaluate_result'),
+
 
 ]
 

@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 import random
 import string
+import re
 import openai 
 import json
 from django.urls import reverse
@@ -176,7 +177,7 @@ def asr(request):
 def get_result_for_one_pair(request):
     question = request.POST['question']
     answer = request.POST['answer']
-    prompt = 'Question : '+str(question)+'\nAnswer: '+str(answer)+'\n\nIn Json format tell me grammar, clarity, confidence, score that interviewer would give to the answer and some comments on answer to improve chances of getting selected. If not sure about something mark it as 0. All marks should be between 0 to 100. \nExample: {"grammar" : 40,"clarity" : 20,"confidence" : 0,"answer_score_based_on_question_according_to_interviewer" : 0,"any_additional_comments" : "Improve your..."}'
+    prompt = 'Question : '+str(question)+'\nAnswer: '+str(answer)+'\n\nIn Json format tell me grammar, clarity, confidence, score that interviewer would give to the answer and some comments on answer to improve chances of getting selected. If not sure about something mark it as 0. All marks should be between 0 to 100. \nExample: {"grammar" : 40,"clarity" : 20,"confidence" : 0,"answer_score_based_on_question_according_to_interviewer" : 0,"advice_to_improve_answer" : "Improve your..."}'
     if "chatgpt_key_interview_ready" not in request.session:
         return redirect('home')
     api_key = request.session['chatgpt_key_interview_ready']
@@ -193,11 +194,127 @@ def save_interview_result(request):
     return JsonResponse({'data': "success"})
 
 def show_interview_result(request):
-    question_answer_pair = request.session['question_answer_pair']
-    question_answer_pair = question_answer_pair.replace("'",'"')
-    question_answer_pair = json.loads(question_answer_pair)
-    for x in question_answer_pair:
-        confidence_dict = json.loads(x["confidence"])
-        print(confidence_dict)
-    return render(request,'show_interview_result.html',{'question_answer_pair':question_answer_pair})
+    return render(request,'show_interview_result.html')
+    
+def evaluate_result(request):
+    try:
+        question_answer_pair = request.session['question_answer_pair']
+        print(question_answer_pair)
+        
+        # question_answer_pair = question_answer_pair.replace("'",'"')
+        question_answer_pair = json.loads(question_answer_pair)
+        # question_answer_pair = []
+        overall_score = 0
+        overall_grammar = 0
+        overall_confidence = 0
+        overall_clarity = 0
+        overall_answer_score_based_on_question_according_to_interviewer = 0
+        ques_ans_pair = []
+        i=1
+        for x in question_answer_pair:
+            if type(x["confidence"]) != dict:
+                y = json.loads(x["confidence"])
+            else:
+                y = x["confidence"]
+            print(y)
+            overall_grammar+= y["grammar"]
+            overall_confidence+=y["confidence"]
+            overall_clarity+=y["clarity"]
+            if "answer_score_based_on_question_according_to_interviewer" in y:
+                overall_answer_score_based_on_question_according_to_interviewer+=y["answer_score_based_on_question_according_to_interviewer"]
+            if "score" in y:
+                overall_answer_score_based_on_question_according_to_interviewer+=y["score"]
+            
 
+            #  Creating new array 
+            temp_jso = {
+                'question_number' : i,
+                'question' : x["question"],
+                'answer' : x['answer'],
+                "grammar_score" : y["grammar"],
+                "clarity_score" : y["confidence"],
+                "confidence_score" : y["clarity"]
+            }
+            if "advice_to_improve_answer" in y and y["advice_to_improve_answer"] != "":
+                temp_jso["advice"] = y["advice_to_improve_answer"]
+            if "answer_score_based_on_question_according_to_interviewer" in y:
+                temp_jso["interviewer_score"]=y["answer_score_based_on_question_according_to_interviewer"]
+            if "score" in y:
+                temp_jso["interviewer_score"]=y["score"]
+            
+            ques_ans_pair.append(temp_jso)
+            i+=1
+        overall_grammar=overall_grammar/7
+        overall_clarity = overall_clarity/7
+        overall_confidence=overall_confidence/7
+        overall_answer_score_based_on_question_according_to_interviewer = overall_answer_score_based_on_question_according_to_interviewer/7
+        overall_score=(overall_grammar + overall_confidence + overall_clarity + (10*overall_answer_score_based_on_question_according_to_interviewer))/13
+        return JsonResponse({'question_answer_pair':ques_ans_pair,'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer)})
+    except:
+        # Calling chatgpt to fix the json
+        question_answer_pair = request.session['question_answer_pair']
+        prompt = "Fix this JSON. Only give correct JSON answer : \n" + question_answer_pair
+        if "chatgpt_key_interview_ready" not in request.session:
+            return redirect('home')
+        api_key = request.session['chatgpt_key_interview_ready']
+        result,any_error = chatgpt(api_key,prompt)
+        if any_error:
+            url = reverse('home') + '?error=ChatGPT Key Expired'
+            return redirect(url)
+        question_answer_pair =result
+        request.session['question_answer_pair'] = question_answer_pair
+
+        # JSON fixed now evaluate
+        question_answer_pair = request.session['question_answer_pair']
+        print(question_answer_pair)
+        
+        # question_answer_pair = question_answer_pair.replace("'",'"')
+        question_answer_pair = json.loads(question_answer_pair)
+        # question_answer_pair = []
+        overall_score = 0
+        overall_grammar = 0
+        overall_confidence = 0
+        overall_clarity = 0
+        overall_answer_score_based_on_question_according_to_interviewer = 0
+        ques_ans_pair = []
+        i=1
+        for x in question_answer_pair:
+            if type(x["confidence"]) != dict:
+                y = json.loads(x["confidence"])
+            else:
+                y = x["confidence"]
+            print(y)
+            overall_grammar+= y["grammar"]
+            overall_confidence+=y["confidence"]
+            overall_clarity+=y["clarity"]
+            if "answer_score_based_on_question_according_to_interviewer" in y:
+                overall_answer_score_based_on_question_according_to_interviewer+=y["answer_score_based_on_question_according_to_interviewer"]
+            if "score" in y:
+                overall_answer_score_based_on_question_according_to_interviewer+=y["score"]
+            
+
+            #  Creating new array 
+            temp_jso = {
+                'question_number' : i,
+                'question' : x["question"],
+                'answer' : x['answer'],
+                "grammar_score" : y["grammar"],
+                "clarity_score" : y["confidence"],
+                "confidence_score" : y["clarity"]
+            }
+            if "advice_to_improve_answer" in y and y["advice_to_improve_answer"] != "":
+                temp_jso["advice"] = y["advice_to_improve_answer"]
+            if "answer_score_based_on_question_according_to_interviewer" in y:
+                temp_jso["interviewer_score"]=y["answer_score_based_on_question_according_to_interviewer"]
+            if "score" in y:
+                temp_jso["interviewer_score"]=y["score"]
+            
+            ques_ans_pair.append(temp_jso)
+            i+=1
+        overall_grammar=overall_grammar/7
+        overall_clarity = overall_clarity/7
+        overall_confidence=overall_confidence/7
+        overall_answer_score_based_on_question_according_to_interviewer = overall_answer_score_based_on_question_according_to_interviewer/7
+        overall_score=(overall_grammar + overall_confidence + overall_clarity + (10*overall_answer_score_based_on_question_according_to_interviewer))/13
+        return JsonResponse({'question_answer_pair':ques_ans_pair,'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer)})
+        

@@ -172,7 +172,7 @@ function getNextQuestion(question_number){
         xhr.onreadystatechange = function () {
           if (xhr.readyState === 4 && xhr.status === 200) {
             console.log("Interview result saved")
-            // window.location.href = "showInterviewResult";
+            window.location.href = "showInterviewResult";
           }
         }
         xhr.send(formData);   
