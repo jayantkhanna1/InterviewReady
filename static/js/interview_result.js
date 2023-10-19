@@ -1,3 +1,4 @@
+
 // For overall score
 var per = document.getElementById('overallscore_inner').getAttribute('data-before')
 var gradientValue = `radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#ffcf5e ${per}, #ffefc8 0)`;
