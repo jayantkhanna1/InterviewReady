@@ -151,6 +151,7 @@ def interview_begin(request):
                  #   question = question[2:]
                 final_questions.append(question)
 
+
         print(final_questions)
         final_final_questions = []
         for x in final_questions:
