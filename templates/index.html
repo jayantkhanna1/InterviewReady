@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Meta Tags -->
     <meta charset="UTF-8">
@@ -12,8 +13,9 @@
     <!-- Links -->
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/toast.css' %}">
-    <link rel = "icon" href =  "{% static 'images/logo.png' %}" type = "image/x-icon"> 
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
 </head>
+
 <body>
     <section id="header">
         <p>Interview <span class="logo_color">Ready<span style="font-size: 20px;">.ai</span></span></p>
@@ -23,7 +25,8 @@
             <p>Interview <span class="logo_color">Ready<span style="font-size: 45px;">.ai</span></span></p>
         </div>
         <div id="central_text">
-            Prepare for interviews with confidence <br> Practice, refine, and master your skills to ace your next tech interview.
+            Prepare for interviews with confidence <br> Practice, refine, and master your skills to ace your next tech
+            interview.
         </div>
         <div id="main_body_form">
             <form action="saveChatGptKey" method="POST" enctype="multipart/form-data">
@@ -33,14 +36,64 @@
             </form>
         </div>
     </section>
+    <section id="mouse_outer">
+        <div id="mouse_inner">
+            <div id="mouse_pointer">
+
+            </div>
+        </div>
+    </section>
+
+    <section id="faq_outer">
+        <button class="accordion">What is this platform?</button>
+        <div class="panel">
+            <p>This is an online service that allows users to practice and improve their interview skills by conducting mock interviews with the assistance of ChatGPT. Users can provide a job description, and ChatGPT will simulate an interview based on that description.</p>
+        </div>
+
+        <button class="accordion">What is the purpose of conducting mock interviews on this platform?</button>
+        <div class="panel">
+            <p>The primary purpose of conducting mock interviews on this platform is to help users practice and improve their interview skills. It's an effective way to prepare for real job interviews by receiving feedback and refining your responses.</p>
+        </div>
+
+        <button class="accordion">Where do I get ChatGPT API key?</button>
+        <div class="panel">
+            <p>Please follow this video tutorial <a href="https://www.youtube.com/watch?v=aVog4J6nIAU">here</a>.  Credits: Tom's Tech Academy</p>
+        </div>
+
+        <button class="accordion">Is this service free to use?</button>
+        <div class="panel">
+            <p>Yes this is completely free you only need ChatGPT API key to start. You dont even need to login</p>
+        </div>
+
+        <button class="accordion">Is my information and data secure on this platform?</button>
+        <div class="panel">
+            <p>Yes your key is absolutely safe. We are not saving anything on our database and key is stored in session storage so you dont need to worry about your key being misused</p>
+        </div>
+
+        <button class="accordion">Can I provide feedback on the platform's performance and ChatGPT's interview questions?</button>
+        <div class="panel">
+            <p>Yes, we value your feedback and continuously strive to improve our platform. You can provide feedback on the 
+                following mail ids: <a href="mailto:jayantkhanna3105@gmail.com">jayantkhanna3105@gmail.com</a>, <a href="mailto:ananyavishnoi26@gmail.com">ananyavishnoi26@gmail.com</a>
+
+            </p>
+        </div>
+
+        <button class="accordion">I am looking to hire or connect with developers for this website. How can I go about doing that?</button>
+        <div class="panel">
+            <p>Hello There! You can connect with us here: <br>Jayant Khanna: <a href="https://www.linkedin.com/in/jayantkhanna1/">Linkedin</a>, <a href="https://github.com/jayantkhanna1">Github</a>, <a href="mailto:jayantkhanna3105@gmail.com">Mail</a><br>Ananya Vishnoi: <a href="https://www.linkedin.com/in/ananya-vishnoi/">Linkedin</a>, <a href="https://github.com/ananya26-vishnoi">Github</a>, <a href="mailto:ananyavishnoi26@gmail.com">Mail</a></p>
+        </div>
+    </section>
+
     <div id="toast">
         <div id="img">
             <img id="right_img" src="{% static 'images/wrong.svg' %}" alt="" />
         </div>
         <div id="desc"></div>
     </div>
+
     <input type="hidden" name="" id="error_if_any" readonly value="{{data}}">
     <script src="{% static 'js/toast.js' %}"></script>
+    
     <script>
         data_error = document.getElementById('error_if_any').value
         console.log(data_error)
@@ -48,12 +101,34 @@
         data_error = data_error.replaceAll('True', 'true');
         data_error = data_error.replaceAll('False', 'false');
         data_error = JSON.parse(data_error)
-        if (data_error["error_present"]){
+        if (data_error["error_present"]) {
             error = data_error["error"]
             document.getElementById("desc").innerHTML = error
             launch_toast_correct()
         }
     </script>
-    
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        // var panel = document.getElementsByClassName('panel')
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                    panel.style.padding = "0px"
+                } else {
+                    panel.style.padding = "33px 7px"
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+
 </body>
+
 </html>

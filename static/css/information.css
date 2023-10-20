@@ -17,6 +17,7 @@
     margin-top: 90px;
     justify-content: center;
     align-items: space-between;
+    flex-direction: row-reverse;
     width: 100%;
 }
 .info_heading{
@@ -39,8 +40,8 @@ textarea{
     border-radius: 8px;
 }
 #job_description{
-    margin-right: 50px;
-    margin-left: -100px;
+    /* margin-right: 50px; */
+    margin-left: 50px;
 }
 #job_description p{
     margin-bottom: 15px;
@@ -79,7 +80,7 @@ select:focus{
     height: 545px;
 }
 #special_tags{
-    width: 266px;
+    width: 84%;
     margin-top: 25px;
     border: none;
     outline: none;
@@ -116,8 +117,8 @@ select:focus{
     font-size: 18px;
     background-color: #4285f4;
     color: white;
-    width: 1242px;
-    margin-left: -100px;
+    width: 100%;
+    /* margin-left: -100px; */
     margin-top: 40px;
     margin-bottom: 50px;
 }

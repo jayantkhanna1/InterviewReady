@@ -74,8 +74,8 @@ def interview_information(request):
     # creating interview type
     if interview_type == "basic":
         interview_type = "telephonic"
-    elif interview_type == "technical":
-        interview_type = "technical"
+    elif interview_type == "background":
+        interview_type = "background"
     else:
         interview_type = "hr and behavioral"
     
@@ -88,9 +88,9 @@ def interview_information(request):
         difficulty = "expert"
 
     # creating initial prompt
-    if interview_type == "technical":
-        # get 3 questions from the database and tell user to solve them. Integrate IDE later
-        pass
+    if interview_type == "background":
+        initial_prompt = "Using this job description give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
+        prompt = initial_prompt + "\n\n Resume " + job_desc 
     else:
         initial_prompt = "Using this job description give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
         prompt = initial_prompt + "\n\n" + job_desc

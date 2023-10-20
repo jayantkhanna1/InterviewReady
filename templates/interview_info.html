@@ -24,15 +24,15 @@
             {% csrf_token %}
             <div id="form_inner">
                 <div id="job_description">
-                    <p class="info_heading">Job Description:</p>
+                    <p class="info_heading" id="job_desc">Job Description:</p>
                     <textarea name="job_description" id="job_description_textarea" cols="30" rows="10" placeholder="Enter Job Description" required></textarea>
                 </div>
                 <div id="right_info">
                     <div class="container_of_select">
                         <p class="info_heading">Interview Type:</p>
-                        <select name="interview_type" id="interview_type" required>
+                        <select name="interview_type" id="interview_type" required onchange="check_if_resume()">
                             <option value="basic">Basic Telephonic Interview</option>
-                            <option value="technical">Technical Interview</option>
+                            <option value="background">Background Interview</option>
                             <option value="hr">Hr/Behavioural Interview</option>
                         </select>
                     </div>
@@ -45,7 +45,7 @@
                         </select>
                     </div>
                     <div class="container_of_select">
-                        <p class="info_heading">Special Tags (Comma separated):</p>
+                        <p class="info_heading">Key Technologies (Comma separated):</p>
                         <input id="special_tags" name="special_tags" type="text" placeholder="Python, AWS, Django, Nodejs....">
                     </div>
                 </div>
@@ -53,5 +53,22 @@
             <input type="submit" value="Next" id="submit_interview_info">
         </form>
     </section>
+    <script>
+        function check_if_resume(){
+            var interview_type = document.getElementById("interview_type").value;
+            if(interview_type == "background"){
+                document.getElementById("job_description_textarea").value = "";
+                document.getElementById("job_description_textarea").placeholder = "Enter Your Resume";
+                document.getElementById("job_desc").innerHTML = "Resume:";
+
+            }
+            else{
+                document.getElementById("job_description_textarea").value = "";
+                document.getElementById("job_description_textarea").placeholder = "Enter Job Description";
+                document.getElementById("job_desc").innerHTML = "Job Description:";
+
+            }
+        }
+    </script>
 </body>
 </html>
