@@ -147,8 +147,8 @@ def interview_begin(request):
             final_questions = []
             for question in questions:
                 # if question has question number delete it 
-                if question[0].isdigit():
-                    question = question[2:]
+                #if question[0].isdigit():
+                 #   question = question[2:]
                 final_questions.append(question)
 
         print(final_questions)
