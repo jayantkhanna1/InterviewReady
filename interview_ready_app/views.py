@@ -76,6 +76,8 @@ def interview_information(request):
         interview_type = "telephonic"
     elif interview_type == "background":
         interview_type = "background"
+    elif interview_type == "custom":
+        interview_type = "custom"
     else:
         interview_type = "hr and behavioral"
     
@@ -89,8 +91,11 @@ def interview_information(request):
 
     # creating initial prompt
     if interview_type == "background":
-        initial_prompt = "Using this job description give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
+        initial_prompt = "Using this candidates resume give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
         prompt = initial_prompt + "\n\n Resume " + job_desc 
+    elif interview_type == "custom":
+        initial_prompt = "Using this custom data give exactly 7 question an interviewer might ask for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
+        prompt = initial_prompt + "\n\n Custom data: " + job_desc
     else:
         initial_prompt = "Using this job description give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
         prompt = initial_prompt + "\n\n" + job_desc
