@@ -11,7 +11,8 @@
     <title>InterviewReady</title>
 
     <!-- Links -->
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" id="light_css">
+    <link rel="stylesheet" href="{% static 'css/dark_index.css' %}" id="dark_css" disabled>
     <link rel="stylesheet" href="{% static 'css/toast.css' %}">
     <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
 </head>
@@ -19,6 +20,14 @@
 <body>
     <section id="header">
         <p>Interview <span class="logo_color">Ready<span style="font-size: 20px;">.ai</span></span></p>
+        <div id="right_side_options">
+            <img onclick="changeCss('dark')" src="{% static 'images/moon.png' %}" alt="" id="moon">
+            <img onclick="changeCss('light')" src="{% static 'images/sun.png' %}" alt="" id="sun">
+
+            <div id="signin">
+                <a href="login" id="login">Sign in</a>
+            </div>
+        </div>
     </section>
     <section id="main_body">
         <div id="main_body_heading">
@@ -29,12 +38,14 @@
             interview.
         </div>
         <div id="main_body_form">
-            <form action="saveChatGptKey" method="POST" enctype="multipart/form-data">
+            <!-- <form action="saveChatGptKey" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="text" name="chatGptKey" id="chatGptKey" placeholder="Enter ChatGpt Key" required>
                 <input type="submit" value="Continue" id="chatgpt_submit">
-            </form>
+            </form> -->
+            <a href="saveChatGptKey" id="continue_button">Continue</a>
         </div>
+
     </section>
     <section id="mouse_outer">
         <div id="mouse_inner">
@@ -94,40 +105,10 @@
     <input type="hidden" name="" id="error_if_any" readonly value="{{data}}">
     <script src="{% static 'js/toast.js' %}"></script>
     
-    <script>
-        data_error = document.getElementById('error_if_any').value
-        console.log(data_error)
-        data_error = data_error.replaceAll('\'', '"');
-        data_error = data_error.replaceAll('True', 'true');
-        data_error = data_error.replaceAll('False', 'false');
-        data_error = JSON.parse(data_error)
-        if (data_error["error_present"]) {
-            error = data_error["error"]
-            document.getElementById("desc").innerHTML = error
-            launch_toast_correct()
-        }
-    </script>
+   <script src="{% static 'js/index.js' %}"></script>
+   <script src="{% static 'js/mode.js' %}"></script>
 
-    <script>
-        var acc = document.getElementsByClassName("accordion");
-        // var panel = document.getElementsByClassName('panel')
-        var i;
 
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null;
-                    panel.style.padding = "0px"
-                } else {
-                    panel.style.padding = "33px 7px"
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-                }
-            });
-        }
-    </script>
 
 </body>
 

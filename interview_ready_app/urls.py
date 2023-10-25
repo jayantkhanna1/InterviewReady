@@ -16,6 +16,7 @@ urlpatterns = [
     path('saveInterviewResult',views.save_interview_result,name='saveInterviewResult'),
     path('showInterviewResult',views.show_interview_result,name='showInterviewResult'),
     path('evaluateResult',views.evaluate_result,name='evaluate_result'),
+    path('login',views.login,name='login'),
 
 
 ]

@@ -25,7 +25,7 @@ def index(request):
     return render(request,'index.html',{"data":data})
 
 def saveChatGptKey(request):
-    chatgpt_key = request.POST['chatGptKey']
+    chatgpt_key = os.environ.get("CHATGPT_KEY")
     request.session['chatgpt_key_interview_ready'] = chatgpt_key
     return redirect('interview_info')
 
@@ -473,3 +473,7 @@ def evaluate_result(request):
         overall_score=(overall_grammar + overall_confidence + overall_clarity + (10*overall_answer_score_based_on_question_according_to_interviewer))/13
         return JsonResponse({'question_answer_pair':ques_ans_pair,'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer)})
         
+
+
+def login(request):
+    return render(request,'login.html')
