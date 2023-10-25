@@ -7,11 +7,11 @@ from dotenv import load_dotenv
 load_dotenv()
 import random
 import string
-import re
 import openai 
 import json
 from django.urls import reverse
 import whisper
+
 
 def index(request):
     data = {
@@ -21,21 +21,30 @@ def index(request):
         error = request.GET["error"]
         data["error_present"] = True
         data["error"] = error
+    
+    if "InterviewReady_privateToken" in request.session:
+        private_token = request.session['InterviewReady_privateToken']
+        if User.objects.filter(private_key=private_token).exists():
+            user = User.objects.get(private_key=private_token)
+            return render(request,'index.html',{"data":data,'logged_in':True,'user':user})
+        else:
+            return render(request,'index.html',{"data":data,'logged_in':False})
+    return render(request,'index.html',{"data":data,'logged_in':False})
 
-    return render(request,'index.html',{"data":data})
-
-def saveChatGptKey(request):
-    chatgpt_key = os.environ.get("CHATGPT_KEY")
-    request.session['chatgpt_key_interview_ready'] = chatgpt_key
-    return redirect('interview_info')
 
 def interview_info(request):
-    if "chatgpt_key_interview_ready" in request.session:
-        chatgpt_key = request.session['chatgpt_key_interview_ready']
-        print(chatgpt_key)
-        return render(request,'interview_info.html',{'chatgpt_key':chatgpt_key})
+    if "InterviewReady_privateToken" in request.session:
+        private_token = request.session['InterviewReady_privateToken']
+        if User.objects.filter(private_key=private_token).exists():
+            user = User.objects.get(private_key=private_token)
+            return render(request,'interview_info.html',{'logged_in':True,'user':user})
+        else:
+            url = reverse('login')
+            return redirect(url)
     else:
-        return redirect('home')
+        url = reverse('login')
+        return redirect(url)
+
 
 def chatgpt(api_key,prompt):
     try:
@@ -473,7 +482,33 @@ def evaluate_result(request):
         overall_score=(overall_grammar + overall_confidence + overall_clarity + (10*overall_answer_score_based_on_question_according_to_interviewer))/13
         return JsonResponse({'question_answer_pair':ques_ans_pair,'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer)})
         
-
-
 def login(request):
-    return render(request,'login.html')
+    data = {
+        "error_present" : False
+    }
+    if "error" in request.GET:
+        error = request.GET["error"]
+        data["error_present"] = True
+        data["error"] = error
+    print(data)
+    return render(request,'login.html',{'data':data})
+
+def login_user(request):
+    
+
+    email = request.POST['email']
+    password = request.POST['password']
+    if User.objects.filter(email=email).exists():
+        user = User.objects.get(email=email)
+        if user.password == password:
+            private_token  = ''.join(random.choices(string.ascii_uppercase +string.digits, k=15))
+            request.session['InterviewReady_privateToken'] = private_token
+            user.private_key = private_token
+            user.save()
+            return redirect('home')
+        else:
+            url = reverse('login') + '?error=Invalid Password'
+            return redirect(url)
+    else:
+        url = reverse('login') + '?error=Invalid Email'
+        return redirect(url)

@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('',views.index,name='index'),
-    path('saveChatGptKey',views.saveChatGptKey,name='saveChatGptKey'),
     path('interview_info',views.interview_info,name='interview_info'),
     path('home',views.index,name='home'),
     path('interview_information',views.interview_information,name='interview_information'),
@@ -17,6 +16,7 @@ urlpatterns = [
     path('showInterviewResult',views.show_interview_result,name='showInterviewResult'),
     path('evaluateResult',views.evaluate_result,name='evaluate_result'),
     path('login',views.login,name='login'),
+    path('login_user',views.login_user,name='login_user'),
 
 
 ]

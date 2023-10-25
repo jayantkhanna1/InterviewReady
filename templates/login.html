@@ -13,8 +13,7 @@
     <!-- Links -->
     <link rel="stylesheet" href="{% static 'css/index.css' %}" id="light_css">
     <link rel="stylesheet" href="{% static 'css/dark_index.css' %}" id="dark_css" disabled>
-
-    <link rel="stylesheet" href="{% static 'css/toast.css' %}">
+    <link rel="stylesheet" href="{% static 'css/toast.css' %}" id="toastcss">
     <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
 </head>
 
@@ -30,7 +29,8 @@
     <section id="login_form">
         <div id="login_form_container">
             <p id="login_form_heading">Sign in</p>
-            <form action="login_user" method="POST">
+            <form action="login_user" method="POST" enctype="multipart/form-data">
+                <!-- Show and forgot password also missing -->
                 {% csrf_token %}
                 <input class="input_filed" type="email" name="email" id="email" placeholder="Email" required>
                 <div id="password_outer">
@@ -41,7 +41,7 @@
                     <input type="submit" value="Sign in" id="submit_login_form">
                 </div>
             </form>
-            <p id="login_form_footer">Don't have an account? <a id="signup_tag" href="/signup/">Sign Up</a></p>
+            <p id="login_form_footer">Don't have an account? <a id="signup_tag" href="signup">Sign Up</a></p>
             <div id="or_field">
                 <div class="or_line">
                     <hr>
