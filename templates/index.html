@@ -23,10 +23,16 @@
         <div id="right_side_options">
             <img onclick="changeCss('dark')" src="{% static 'images/moon.png' %}" alt="" id="moon">
             <img onclick="changeCss('light')" src="{% static 'images/sun.png' %}" alt="" id="sun">
-
+            {% if not logged_in %}
             <div id="signin">
                 <a href="login" id="login">Sign in</a>
             </div>
+            {% else %}
+            <div id="user_profile">
+                <img onclick="openUserModal()" src="{% static 'images/light_user.png' %}" alt="" id="user_img_dark">
+                <img onclick="openUserModal()" src="{% static 'images/dark_user.png' %}" alt="" id="user_img_light">
+            </div>
+            {% endif %}
         </div>
     </section>
     <section id="main_body">
@@ -38,11 +44,6 @@
             interview.
         </div>
         <div id="main_body_form">
-            <!-- <form action="saveChatGptKey" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="text" name="chatGptKey" id="chatGptKey" placeholder="Enter ChatGpt Key" required>
-                <input type="submit" value="Continue" id="chatgpt_submit">
-            </form> -->
             <a href="interview_info" id="continue_button">Continue</a>
         </div>
 
@@ -58,17 +59,22 @@
     <section id="faq_outer">
         <button class="accordion">What is this platform?</button>
         <div class="panel">
-            <p>This is an online service that allows users to practice and improve their interview skills by conducting mock interviews with the assistance of ChatGPT. Users can provide a job description, and ChatGPT will simulate an interview based on that description.</p>
+            <p>This is an online service that allows users to practice and improve their interview skills by conducting
+                mock interviews with the assistance of ChatGPT. Users can provide a job description, and ChatGPT will
+                simulate an interview based on that description.</p>
         </div>
 
         <button class="accordion">What is the purpose of conducting mock interviews on this platform?</button>
         <div class="panel">
-            <p>The primary purpose of conducting mock interviews on this platform is to help users practice and improve their interview skills. It's an effective way to prepare for real job interviews by receiving feedback and refining your responses.</p>
+            <p>The primary purpose of conducting mock interviews on this platform is to help users practice and improve
+                their interview skills. It's an effective way to prepare for real job interviews by receiving feedback
+                and refining your responses.</p>
         </div>
 
         <button class="accordion">Where do I get ChatGPT API key?</button>
         <div class="panel">
-            <p>Please follow this video tutorial <a href="https://www.youtube.com/watch?v=aVog4J6nIAU">here</a>.  Credits: Tom's Tech Academy</p>
+            <p>Please follow this video tutorial <a href="https://www.youtube.com/watch?v=aVog4J6nIAU">here</a>.
+                Credits: Tom's Tech Academy</p>
         </div>
 
         <button class="accordion">Is this service free to use?</button>
@@ -78,20 +84,31 @@
 
         <button class="accordion">Is my information and data secure on this platform?</button>
         <div class="panel">
-            <p>Yes your key is absolutely safe. We are not saving anything on our database and key is stored in session storage so you dont need to worry about your key being misused</p>
+            <p>Yes your key is absolutely safe. We are not saving anything on our database and key is stored in session
+                storage so you dont need to worry about your key being misused</p>
         </div>
 
-        <button class="accordion">Can I provide feedback on the platform's performance and ChatGPT's interview questions?</button>
+        <button class="accordion">Can I provide feedback on the platform's performance and ChatGPT's interview
+            questions?</button>
         <div class="panel">
-            <p>Yes, we value your feedback and continuously strive to improve our platform. You can provide feedback on the 
-                following mail ids: <a href="mailto:jayantkhanna3105@gmail.com">jayantkhanna3105@gmail.com</a>, <a href="mailto:ananyavishnoi26@gmail.com">ananyavishnoi26@gmail.com</a>
+            <p>Yes, we value your feedback and continuously strive to improve our platform. You can provide feedback on
+                the
+                following mail ids: <a href="mailto:jayantkhanna3105@gmail.com">jayantkhanna3105@gmail.com</a>, <a
+                    href="mailto:ananyavishnoi26@gmail.com">ananyavishnoi26@gmail.com</a>
 
             </p>
         </div>
 
-        <button class="accordion">I am looking to hire or connect with developers for this website. How can I go about doing that?</button>
+        <button class="accordion">I am looking to hire or connect with developers for this website. How can I go about
+            doing that?</button>
         <div class="panel">
-            <p>Hello There! You can connect with us here: <br>Jayant Khanna: <a href="https://www.linkedin.com/in/jayantkhanna1/">Linkedin</a>, <a href="https://github.com/jayantkhanna1">Github</a>, <a href="mailto:jayantkhanna3105@gmail.com">Mail</a><br>Ananya Vishnoi: <a href="https://www.linkedin.com/in/ananya-vishnoi/">Linkedin</a>, <a href="https://github.com/ananya26-vishnoi">Github</a>, <a href="mailto:ananyavishnoi26@gmail.com">Mail</a></p>
+            <p>Hello There! You can connect with us here: <br>Jayant Khanna: <a
+                    href="https://www.linkedin.com/in/jayantkhanna1/">Linkedin</a>, <a
+                    href="https://github.com/jayantkhanna1">Github</a>, <a
+                    href="mailto:jayantkhanna3105@gmail.com">Mail</a><br>Ananya Vishnoi: <a
+                    href="https://www.linkedin.com/in/ananya-vishnoi/">Linkedin</a>, <a
+                    href="https://github.com/ananya26-vishnoi">Github</a>, <a
+                    href="mailto:ananyavishnoi26@gmail.com">Mail</a></p>
         </div>
     </section>
 
@@ -102,12 +119,31 @@
         <div id="desc"></div>
     </div>
 
+    <div id="myModal" class="modal">
+        <div id="modal_outer">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close">&times;</span>
+                    <img src="{% static 'images/def_user.png' %}" alt="" id="user_img">
+                    <p id="free_credits">{{user.free_trials_left}}/3 pro interviews left</p>
+                    <!-- <p id="free_credits" class="modal_written">2/5 pro interviews left</p> -->
+                    <p id="user_email" class="modal_written">{{user.email}}</p>
+                    <a href="" id="usersettings" class="modal_button">Edit Profile</a>
+                    <a href="" id="logout" class="modal_button">Logout</a>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <input type="hidden" name="" id="error_if_any" readonly value="{{data}}">
     <script src="{% static 'js/toast.js' %}"></script>
-    
-   <script src="{% static 'js/index.js' %}"></script>
-   <script src="{% static 'js/mode.js' %}"></script>
 
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/mode.js' %}"></script>
+    <script src="{% static 'js/userModal.js' %}"></script>
 
 
 </body>

@@ -10,7 +10,7 @@
     <title>InterviewReady</title>
 
     <!-- Links -->
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" id="light_css">
     <link rel="stylesheet" href="{% static 'css/information.css' %}">
     <link rel="stylesheet" href="{% static 'css/dark_index.css' %}" id="dark_css" disabled>
     <link rel="stylesheet" href="{% static 'css/toast.css' %}"  id="toastcss">
@@ -18,7 +18,15 @@
 </head>
 <body>
     <section id="header">
-        <p>Interview <span class="logo_color">Ready</span></p>
+        <p>Interview <span class="logo_color">Ready<span style="font-size: 20px;">.ai</span></span></p>
+        <div id="right_side_options">
+            <img onclick="changeCss('dark')" src="{% static 'images/moon.png' %}" alt="" id="moon">
+            <img onclick="changeCss('light')" src="{% static 'images/sun.png' %}" alt="" id="sun">
+            <div id="user_profile">
+                <img onclick="openUserModal()" src="{% static 'images/light_user.png' %}" alt="" id="user_img_dark">
+                <img onclick="openUserModal()" src="{% static 'images/dark_user.png' %}" alt="" id="user_img_light">
+            </div>
+        </div>
     </section>
     <section id="information_form">
         <p>Enter all relevant information</p>
@@ -56,27 +64,35 @@
             <input type="submit" value="Next" id="submit_interview_info">
         </form>
     </section>
-    <script>
-        function check_if_resume(){
-            var interview_type = document.getElementById("interview_type").value;
-            if(interview_type == "background"){
-                document.getElementById("job_description_textarea").value = "";
-                document.getElementById("job_description_textarea").placeholder = "Enter Your Resume";
-                document.getElementById("job_desc").innerHTML = "Resume:";
+    <div id="toast">
+        <div id="img">
+            <img id="right_img" src="{% static 'images/wrong.svg' %}" alt="" />
+        </div>
+        <div id="desc"></div>
+    </div>
 
-            }
-            else if(interview_type == "custom"){
-                document.getElementById("job_description_textarea").value = "";
-                document.getElementById("job_description_textarea").placeholder = "Enter Custom Data";
-                document.getElementById("job_desc").innerHTML = "Custom Data:";
-            }           
-            else{
-                document.getElementById("job_description_textarea").value = "";
-                document.getElementById("job_description_textarea").placeholder = "Enter Job Description";
-                document.getElementById("job_desc").innerHTML = "Job Description:";
+    <div id="myModal" class="modal">
+        <div id="modal_outer">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close">&times;</span>
+                    <img src="{% static 'images/def_user.png' %}" alt="" id="user_img">
+                    <p id="free_credits">{{user.free_trials_left}}/3 pro interviews left</p>
+                    <!-- <p id="free_credits" class="modal_written">2/5 pro interviews left</p> -->
+                    <p id="user_email" class="modal_written">{{user.email}}</p>
+                    <a href="" id="usersettings" class="modal_button">Edit Profile</a>
+                    <a href="" id="logout" class="modal_button">Logout</a>
 
-            }
-        }
-    </script>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="{% static 'js/interview_info.js' %}"></script>
+
+    <script src="{% static 'js/mode.js' %}"></script>
+    <script src="{% static 'js/userModal.js' %}"></script>
 </body>
 </html>

@@ -6,3 +6,4 @@ class User(models.Model):
     otp = models.CharField(max_length=200)
     otp_verified = models.BooleanField(default=False)
     private_key = models.CharField(max_length=200)
+    free_trials_left = models.IntegerField(default=3)

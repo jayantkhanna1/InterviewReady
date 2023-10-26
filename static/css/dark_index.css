@@ -246,32 +246,36 @@ body {
     margin-bottom: 9px;
     width: 79.5%;
 }
-.panel p{
+
+.panel p {
     font-family: 'Sans Serif', sans-serif;
     font-size: 15px;
     width: 95%;
     color: #969696;
     margin-left: 20px;
 }
+
 body::-webkit-scrollbar {
     width: 8px;
     background-color: transparent;
-  }
-  
-  /* Track */
+}
+
+/* Track */
 body::-webkit-scrollbar-track {
-border-radius: 10px;
-background-color: transparent;
+    border-radius: 10px;
+    background-color: transparent;
 }
 
 body::-webkit-scrollbar-thumb {
-background: #767777;
-border-radius: 10px;
+    background: #767777;
+    border-radius: 10px;
 }
-body{
+
+body {
     margin-bottom: 25px;
 }
-#right_side_options{
+
+#right_side_options {
     position: absolute;
     top: 32%;
     display: flex;
@@ -279,12 +283,13 @@ body{
     align-items: center;
     right: 37px;
 }
-#right_side_options img{
+
+#right_side_options img {
     width: 25px;
     cursor: pointer;
 }
 
-#continue_button{
+#continue_button {
     border: none;
     cursor: pointer;
     outline: none;
@@ -301,7 +306,7 @@ body{
     margin-top: 25px;
 }
 
-#login{
+#login {
     color: #ba87fc;
     border: 1px solid #ba87fc;
     border-radius: 5px;
@@ -312,7 +317,8 @@ body{
     margin-left: 20px;
     font-family: 'Sans Serif', sans-serif;
 }
-#login_form{
+
+#login_form {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -320,12 +326,14 @@ body{
     height: 42vw;
     align-content: center;
 }
-#login_form_container{
+
+#login_form_container {
     background-color: #1f1e1e;
     padding: 30px 50px;
     border-radius: 20px;
 }
-#login_form_heading{
+
+#login_form_heading {
     color: #9d9d9d;
     font-size: 40px;
     text-align: center;
@@ -334,7 +342,8 @@ body{
     margin-bottom: 40px;
 
 }
-.input_filed{
+
+.input_filed {
     outline: none;
     border: none;
     width: 479px;
@@ -347,12 +356,14 @@ body{
     font-size: 16px;
     border-radius: 8px;
 }
-.input_filed::placeholder{
+
+.input_filed::placeholder {
     color: #9d9d9d;
     font-family: 'Sans Serif', sans-serif;
     font-weight: 500;
 }
-#submit_login_form{
+
+#submit_login_form {
     border: none;
     cursor: pointer;
     outline: none;
@@ -368,23 +379,27 @@ body{
     text-decoration: none;
     margin-top: 14px;
 }
-#login_submit_outer{
+
+#login_submit_outer {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#login_form_footer{
+
+#login_form_footer {
     text-align: center;
     color: #989898;
     font-family: 'Sans Serif', sans-serif;
     font-size: 18px;
     margin-top: 25px;
 }
-#signup_tag{
+
+#signup_tag {
     color: #ba87fc;
     text-decoration: none;
 }
-#or_field{
+
+#or_field {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -392,10 +407,12 @@ body{
     width: 100%;
     margin-bottom: 30px;
 }
-.or_line{
+
+.or_line {
     width: 45%;
 }
-#or_text{
+
+#or_text {
     color: #ffffff;
     font-family: 'Sans Serif', sans-serif;
     font-size: 18px;
@@ -561,4 +578,172 @@ body{
 #wrong_img, #right_img {
     width: 30px;
     margin-top: -5px;
+}
+
+#user_profile {
+    margin-top: 5px;
+    margin-left: 25px;
+}
+
+#user_img_light {
+    display: none;
+}
+
+/* Modal styling */
+/* The Modal (background) */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    /* background-color: rgb(0, 0, 0); */
+    /* Fallback color */
+    /* position: relative; */
+    /* background-color: rgba(0, 0, 0, 0.4); */
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    border-radius: 8px;
+    position: absolute;
+    background-color: #1f1e1e;
+    margin: auto;
+    padding: 0;
+    width: 23%;
+    right: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 15px;
+    top: 5px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #1f1e1e;
+    color: white;
+}
+
+.modal-body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2px 16px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #1f1e1e;
+    color: white;
+}
+#user_img{
+    width: 35%;
+    margin-bottom: 25px;
+}
+#modal_outer {
+    position: relative;
+}
+
+.modal_written{
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+    color: #e7e7e7;
+    text-align: center;
+    margin-bottom: 9px;
+}
+#free_credits{
+    font-size: 15px;
+    color: #a6a6a6;
+    font-family: 'Sans Serif', sans-serif;
+
+    margin-bottom: 5px;
+}
+.modal_button{
+    cursor: pointer;
+    outline: none;
+    height: 30px;
+    padding: 6px 55px;
+    border-radius: 126px;
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+    border: 1px solid #a6a6a6;
+    background-color: transparent;
+    color: white;
+    margin-left: -3px;
+    width: 38%;
+    text-decoration: none;
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#information_form p{
+    color: #989898;
+}
+.info_heading{
+    font-size: 15px;
+}
+#interview_type,#difficulty,#special_tags,#job_description_textarea{
+    background-color: #3a3b3a;
+    color: white;
 }

@@ -101,24 +101,22 @@ def interview_information(request):
     # creating initial prompt
     if interview_type == "background":
         initial_prompt = "Using this candidates resume give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
-        prompt = initial_prompt + "\n\n Resume " + job_desc 
+        free_prompt = initial_prompt + "\n\n Resume " + job_desc 
     elif interview_type == "custom":
         initial_prompt = "Using this custom data give exactly 7 question an interviewer might ask for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
-        prompt = initial_prompt + "\n\n Custom data: " + job_desc
+        free_prompt = initial_prompt + "\n\n Custom data: " + job_desc
     else:
         initial_prompt = "Using this job description give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
-        prompt = initial_prompt + "\n\n" + job_desc
+        free_prompt = initial_prompt + "\n\n" + job_desc
     
-    if "chatgpt_key_interview_ready" not in request.session:
-        return redirect('home')
-    api_key = request.session['chatgpt_key_interview_ready']
-    result,any_error = chatgpt(api_key,prompt)
-    if any_error:
-        url = reverse('home') + '?error=Invalid Chatgpt Key'
-        return redirect(url)
-    request.session['questions_interview_ready'] = result  
-
-    return redirect('interview_begin')
+    api_key = os.getenv('CHATGPT_KEY')
+    # result,any_error = chatgpt(api_key,free_prompt)
+    # if any_error:
+    #     url = reverse('home') + '?error=Internal Server Error'
+    #     return redirect(url)
+    # request.session['questions_interview_ready'] = result  
+    request.session['interview_ready_free_prompt'] = free_prompt
+    return redirect('interview_mode')
 
 def remove(string,substring):
     result = ""
@@ -558,3 +556,7 @@ def otp_verify(request):
     else:
         url = reverse('login') + '?error=Invalid OTP'
         return redirect(url)
+    
+def interview_mode(request):
+    return render(request,'interview_mode.html')
+
