@@ -16,6 +16,9 @@ urlpatterns = [
     path('showInterviewResult',views.show_interview_result,name='showInterviewResult'),
     path('evaluateResult',views.evaluate_result,name='evaluate_result'),
     path('login',views.login,name='login'),
+    path('signup',views.signup,name='signup'),
+    path('signup_user',views.signup_user,name='signup_user'),
+    path("otp_verify", views.otp_verify, name="otp_verify"),
     path('login_user',views.login_user,name='login_user'),
 
 

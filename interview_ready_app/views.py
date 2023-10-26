@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
-from transformers import pipeline
 from .models import *
 from django.http import JsonResponse
 import os
+from django.core.mail import send_mail
 from dotenv import load_dotenv 
 load_dotenv()
 import random
@@ -494,13 +494,22 @@ def login(request):
     return render(request,'login.html',{'data':data})
 
 def login_user(request):
-    
-
     email = request.POST['email']
     password = request.POST['password']
     if User.objects.filter(email=email).exists():
         user = User.objects.get(email=email)
         if user.password == password:
+            if user.otp_verified == False:
+                otp = ''.join(random.choices(string.ascii_uppercase +string.digits, k=6))
+                user.otp = otp
+                user.save()
+                data_to_be_sent = "Here is your OTP for InterviewReady.ai. Please do not share it with anyone. OTP : " + otp + " ."
+                # sendMail([email],data_to_be_sent)
+                from_email = os.getenv('EMAIL_HOST_USER')
+                subject = "OTP for InterviewReady.ai"
+                send_mail(subject,data_to_be_sent,from_email,[email])
+                return render(request,'otp.html',{'email':email})
+            
             private_token  = ''.join(random.choices(string.ascii_uppercase +string.digits, k=15))
             request.session['InterviewReady_privateToken'] = private_token
             user.private_key = private_token
@@ -511,4 +520,41 @@ def login_user(request):
             return redirect(url)
     else:
         url = reverse('login') + '?error=Invalid Email'
+        return redirect(url)
+    
+def signup(request):
+    return render(request,'signup.html')
+
+def signup_user(request):
+    email = request.POST['email']
+    password = request.POST['password']
+    if User.objects.filter(email=email).exists():
+        url = reverse('signup') + '?error=User Already Exists'
+        return redirect(url)
+    else:
+        private_token  = ''.join(random.choices(string.ascii_uppercase +string.digits, k=15))
+        otp = ''.join(random.choices(string.ascii_uppercase +string.digits, k=6))
+        user = User(email=email,password=password,private_key=private_token,otp=otp)
+        user.save()
+        data_to_be_sent = "Here is your OTP for InterviewReady.ai. Please do not share it with anyone. OTP : " + otp + " ."
+        from_email = os.getenv('EMAIL_HOST_USER')
+        subject = "OTP for InterviewReady.ai"
+        send_mail(subject,data_to_be_sent,from_email,[email])
+        request.session['InterviewReady_privateToken'] = private_token
+        return render(request,'otp.html',{'email':email})
+
+def otp_verify(request):
+    email = request.POST['email']
+    otp = request.POST['otp']
+    print(request.POST)
+    if User.objects.filter(email=email,otp=otp).exists():
+        user = User.objects.get(email=email)
+        user.otp_verified = True
+        private_key = ''.join(random.choices(string.ascii_uppercase +string.digits, k=15))
+        user.private_key = private_key
+        request.session['InterviewReady_privateToken'] = private_key
+        user.save()
+        return redirect('home')
+    else:
+        url = reverse('login') + '?error=Invalid OTP'
         return redirect(url)

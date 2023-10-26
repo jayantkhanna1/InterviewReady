@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Sign up</title>
+
+    <!-- Links -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" id="light_css">
+    <link rel="stylesheet" href="{% static 'css/dark_index.css' %}" id="dark_css" disabled>
+    <link rel="stylesheet" href="{% static 'css/toast.css' %}" id="toastcss">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+</head>
+
+<body>
+    <section id="header">
+        <p>Interview <span class="logo_color">Ready<span style="font-size: 20px;">.ai</span></span></p>
+        <div id="right_side_options">
+            <img onclick="changeCss('dark')" src="{% static 'images/moon.png' %}" alt="" id="moon">
+            <img onclick="changeCss('light')" src="{% static 'images/sun.png' %}" alt="" id="sun">
+
+        </div>
+    </section>
+    <section id="login_form">
+        <div id="login_form_container">
+            <p id="login_form_heading">Sign up</p>
+            <form action="signup_user" method="POST" enctype="multipart/form-data">
+                <!-- Show and forgot password also missing -->
+                {% csrf_token %}
+                <input class="input_filed" type="email" name="email" id="email" placeholder="Email" required>
+                <div id="password_outer">
+                    <input class="input_filed" type="password" name="password" id="password" placeholder="Password"
+                        required>
+                </div>
+                <div id="login_submit_outer">
+                    <input type="submit" value="Sign up" id="submit_login_form">
+                </div>
+            </form>
+            <p id="login_form_footer">Already have an account? <a id="signup_tag" href="login">Sign in</a></p>
+            <div id="or_field">
+                <div class="or_line">
+                    <hr>
+                </div>
+                <p id="or_text">OR</p>
+                <div class="or_line">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="toast">
+        <div id="img">
+            <img id="right_img" src="{% static 'images/wrong.svg' %}" alt="" />
+        </div>
+        <div id="desc"></div>
+    </div>
+
+    <input type="hidden" name="" id="error_if_any" readonly value="{{data}}">
+    <script src="{% static 'js/toast.js' %}"></script>
+
+    <script src="{% static 'js/mode.js' %}"></script>
+
+</body>
+
+</html>
