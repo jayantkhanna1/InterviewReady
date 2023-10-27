@@ -319,7 +319,7 @@ body {
     transition: 0.3s all ease-in-out;
 }
 
-#login:hover{
+#login:hover {
     background-color: #ba87fc;
     color: white;
 }
@@ -702,29 +702,33 @@ body {
     background-color: #1f1e1e;
     color: white;
 }
-#user_img{
+
+#user_img {
     width: 35%;
     margin-bottom: 25px;
 }
+
 #modal_outer {
     position: relative;
 }
 
-.modal_written{
+.modal_written {
     font-family: 'Sans Serif', sans-serif;
     font-size: 18px;
     color: #e7e7e7;
     text-align: center;
     margin-bottom: 9px;
 }
-#free_credits{
+
+#free_credits {
     font-size: 15px;
     color: #a6a6a6;
     font-family: 'Sans Serif', sans-serif;
 
     margin-bottom: 5px;
 }
-.modal_button{
+
+.modal_button {
     cursor: pointer;
     outline: none;
     height: 30px;
@@ -743,19 +747,22 @@ body {
     justify-content: center;
     align-items: center;
 }
-#information_form p{
+
+#information_form p {
     color: #989898;
 }
-.info_heading{
+
+.info_heading {
     font-size: 15px;
 }
-#interview_type,#difficulty,#special_tags,#job_description_textarea{
+
+#interview_type, #difficulty, #special_tags, #job_description_textarea {
     background-color: #3a3b3a;
     color: white;
 }
 
 /* Interview mode styling */
-#interview_mode{
+#interview_mode {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -763,25 +770,29 @@ body {
     flex-direction: column;
     margin-top: 70px;
 }
-#interview_mode h2{
+
+#interview_mode h2 {
     color: #989898;
     font-weight: 400;
     font-size: 30px;
 }
-#two_mode_options{
+
+#two_mode_options {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 190px;
     width: 48%;
 }
-.above_image{
+
+.above_image {
     position: absolute;
     top: -149px;
     width: 150px;
     left: 31%;
 }
-.mode_option{
+
+.mode_option {
     background-color: #272727;
     height: 410px;
     border-radius: 14px;
@@ -789,24 +800,28 @@ body {
     padding: 42px;
     position: relative;
 }
-.point{
+
+.point {
     display: flex;
     justify-content: left;
     align-items: center;
     margin-bottom: 15px;
 }
-.tick_or_cross{
+
+.tick_or_cross {
     width: 30px;
     margin-right: 25px;
 
 }
-.daniel_chooses{
+
+.daniel_chooses {
     color: #959595;
     font-family: 'Sans Serif', sans-serif;
     font-size: 18px;
     text-align: center;
 }
-.heading_mode{
+
+.heading_mode {
     color: #ba87fc;
     font-family: 'Sans Serif', sans-serif;
     font-size: 45px;
@@ -814,13 +829,15 @@ body {
     text-align: center;
     margin-bottom: 25px;
 }
-.point p{
+
+.point p {
     color: white;
     font-family: 'Sans Serif', sans-serif;
     font-size: 18px;
 
 }
-.get_started{
+
+.get_started {
     text-decoration: none;
     padding: 12px 15px;
     color: #ba87fc;
@@ -832,13 +849,166 @@ body {
     width: 90%;
     transition: all 0.3s ease-in-out;
 }
-.get_started:hover{
+
+.get_started:hover {
     background-color: #ba87fc;
     color: white;
 }
-.last_point{
+
+.last_point {
     margin-bottom: 60px;
 }
-.faq_a{
+
+.faq_a {
     color: #ba87fc;
+}
+
+.half {
+    width: 43%;
+}
+
+#name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Edit profile css */
+#edit_profile_header {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 323px;
+    margin-top: 70px;
+}
+
+#edit_profile_name {
+    color: #767777;
+    font-size: 18px;
+    font-family: 'Sans Serif', sans-serif;
+}
+
+#edit_profile_header h2 {
+    color: rgb(229, 229, 229);
+    font-size: 32px;
+    font-family: 'Sans Serif', sans-serif;
+    margin-top: 15px;
+    font-weight: 400;
+}
+
+#options {
+    display: flex;
+    margin-top: 25px;
+}
+
+#options a {
+    margin-right: 35px;
+    padding: 20px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Sans Serif', sans-serif;
+    padding-left: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.active_edit_profile {
+    color: #ba87fc !important;
+    border-bottom: 2px solid #ba87fc;
+    padding-right: 0 !important;
+}
+
+#edit_profile_main {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 323px;
+    margin-top: 40px;
+}
+
+#name_and_passwords h4,#delete_account h4 {
+    color: rgb(222, 222, 222);
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+    margin-bottom: 25px;
+
+}
+#delete_account{
+    margin-top: 50px;
+}
+#name_and_passwords{
+    border-bottom: 1px solid #4c4c4c;
+    padding-bottom: 50px;
+    padding-right: 45%;
+}
+#edit_name,#edit_password {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#edit_name div,#edit_password div {
+    display: flex;
+    flex-direction: column;
+    margin-right: 25px;
+}
+
+#edit_name div>label, #edit_password div>label {
+    color: rgb(168, 168, 168);
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.input_edit_p {
+    outline: none;
+    border: none;
+    /* width: 479px;
+    height: 40px; */
+    margin-bottom: 16px;
+    font-family: 'Sans Serif', sans-serif;
+    font-weight: 500;
+    padding: 12px 15px;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 18px;
+    background-color: #3a3b3a;
+}
+
+.input_edit_p::placeholder {
+    color: #9d9d9d;
+    font-family: 'Sans Serif', sans-serif;
+    font-weight: 500;
+}
+
+#edit_name button, #edit_password button {
+    border-radius: 50px;
+    width: 106px;
+    background-color: #ba87fc;
+    color: white;
+    outline: none;
+    border: none;
+    font-size: 17px;
+    height: 38px;
+    margin-top: 24px;
+    cursor: pointer;
+}
+#edit_password{
+    margin-top: 30px;
+}
+#delete{
+    padding: 15px 45px;
+    background-color: red;
+    color: white;
+    font-family: 'Sans Serif', sans-serif;
+    text-decoration: none;
+    margin-top: 30px;
+    border-radius: 30px;
+    font-size: 18px;
+}
+#delete_account h4{
+    margin-bottom: 50px;
 }

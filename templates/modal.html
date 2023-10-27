@@ -8,7 +8,7 @@
                 <img src="{% static 'images/def_user.png' %}" alt="" id="user_img">
                 <p id="free_credits">{{user.free_trials_left}}/3 pro interviews left</p>
                 <!-- <p id="free_credits" class="modal_written">2/5 pro interviews left</p> -->
-                <p id="user_email" class="modal_written">{{user.email}}</p>
+                <p id="user_email" class="modal_written">{{user.first_name}} {{user.last_name}} </p>
                 <a href="edit_profile" id="usersettings" class="modal_button">Edit Profile</a>
                 <a href="logout" id="logout" class="modal_button">Logout</a>
             </div>

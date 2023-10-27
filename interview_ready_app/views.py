@@ -537,6 +537,8 @@ def signup(request):
     return render(request,'signup.html')
 
 def signup_user(request):
+    first_name = request.POST['f_name']
+    last_name = request.POST['l_name']
     email = request.POST['email']
     password = request.POST['password']
     if User.objects.filter(email=email).exists():
@@ -545,7 +547,7 @@ def signup_user(request):
     else:
         private_token  = ''.join(random.choices(string.ascii_uppercase +string.digits, k=15))
         otp = ''.join(random.choices(string.ascii_uppercase +string.digits, k=6))
-        user = User(email=email,password=password,private_key=private_token,otp=otp)
+        user = User(email=email,password=password,private_key=private_token,otp=otp,first_name=first_name,last_name=last_name)
         user.save()
         data_to_be_sent = "Here is your OTP for InterviewReady.ai. Please do not share it with anyone. OTP : " + otp + " ."
         from_email = os.getenv('EMAIL_HOST_USER')
@@ -605,11 +607,36 @@ def edit_profile(request):
         return redirect(url)
     return render(request,'edit_profile.html',{'user':user,'logged_in':True})
 
+def changeName(request):
+    user = user_logged_in(request)
+    if not user:
+        url = reverse('login')
+        return redirect(url)
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    user.first_name = first_name
+    user.last_name = last_name
+    user.save()
+    return JsonResponse({'data':'success'})
 
+def changePassword(request):
+    user = user_logged_in(request)
+    if not user:
+        url = reverse('login')
+        return redirect(url)
+    new_password = request.POST['new_pwd']
+    user.password = new_password
+    user.save()
+    return JsonResponse({'data':'success'})
 
-
-
-
+def deleteAccount(request):
+    user = user_logged_in(request)
+    if not user:
+        url = reverse('login')
+        return redirect(url)
+    
+    user.delete()
+    return redirect('home')
 
 
 

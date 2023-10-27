@@ -22,6 +22,48 @@
     {%block content2%}
     {%endblock%}
 
+    <section id="edit_profile_header">
+        <p id="edit_profile_name">{{user.first_name}} {{user.last_name}}</p>
+        <h2>Personal Settings</h2>
+        <div id="options">
+            <a href="edit_profile" class="active_edit_profile">My account</a>
+            <a href="history">History</a>
+        </div>
+    </section>
+
+    <section id="edit_profile_main">
+        <div id="name_and_passwords">
+            <h4>Name and Passwords</h4>
+            <div id="edit_name">
+                <div>   
+                    <label for="f_name_edit_p">First Name</label>
+                    <input type="text" name="f_name_edit_p" id="f_name_edit_p" value="{{user.first_name}}" class="input_edit_p" placeholder="John">
+                </div>
+                <div>   
+                    <label for="l_name_edit_p">Last Name</label>
+                    <input type="text" name="l_name_edit_p" id="l_name_edit_p" value="{{user.last_name}}" class="input_edit_p" placeholder="Doe">
+                </div>
+                <button class="edit_save_button" onclick="changeName()">Save</button>
+            </div>
+            <div id="edit_password">
+                <div>   
+                    <label for="c_pwd_edit_p">Current Password</label>
+                    <input type="password" name="c_pwd_edit_p" id="c_pwd_edit_p" class="input_edit_p" placeholder="Your current password">
+                </div>
+                <div>   
+                    <label for="new_pwd_edit_p">New Password</label>
+                    <input type="password" name="new_pwd_edit_p" id="new_pwd_edit_p" class="input_edit_p" placeholder="Your new Password">
+                </div>
+                <button class="edit_save_button" onclick="changePassword()">Save</button>
+            </div>
+        </div>
+
+        <div id="delete_account">
+            <h4>Delete Account</h4>
+            <a href="deleteAccount" id="delete">Delete</a>
+        </div>
+    </section>
+
     <div id="toast">
         <div id="img">
             <img id="right_img" src="{% static 'images/wrong.svg' %}" alt="" />
@@ -33,12 +75,15 @@
     {%block content1%}
     {%endblock%}
 
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" id="csrf_token">
+
     <input type="hidden" name="" id="error_if_any" readonly value="{{data}}">
     <script src="{% static 'js/toast.js' %}"></script>
 
     <script src="{% static 'js/index.js' %}"></script>
     <script src="{% static 'js/mode.js' %}"></script>
     <script src="{% static 'js/userModal.js' %}"></script>
+    <script src="{% static 'js/edit_profile.js' %}"></script>
 
 
 </body>

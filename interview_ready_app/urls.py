@@ -24,6 +24,9 @@ urlpatterns = [
     path('interview_begin_premium',views.interview_begin_premium,name='interview_begin_premium'),
     path('logout',views.logout,name='logout'),
     path('edit_profile',views.edit_profile,name='edit_profile'),
+    path('changeName',views.changeName,name="changeName"),
+    path('changePassword',views.changePassword,name = "changePassword"),
+    path('deleteAccount',views.deleteAccount,name="deleteAccount")
 
 
 ]

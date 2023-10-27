@@ -662,3 +662,152 @@ body{
     
     color: #ba87fc;
 }
+.half{
+    width: 43%;
+}
+#name{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* Edit profile css */
+#edit_profile_header {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 323px;
+    margin-top: 70px;
+}
+
+#edit_profile_name {
+    color: #3a3a3a;
+    font-size: 18px;
+    font-family: 'Sans Serif', sans-serif;
+}
+
+#edit_profile_header h2 {
+    color: rgb(67 67 67);
+    font-size: 32px;
+    font-family: 'Sans Serif', sans-serif;
+    margin-top: 15px;
+    font-weight: 400;
+}
+
+#options {
+    display: flex;
+    margin-top: 25px;
+}
+
+#options a {
+    margin-right: 35px;
+    padding: 20px;
+    text-decoration: none;
+    color: #3a3a3a;
+    font-family: 'Sans Serif', sans-serif;
+    padding-left: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.active_edit_profile {
+    color: #3a3a3a !important;
+    border-bottom: 2px solid #ba87fc;
+    padding-right: 0 !important;
+}
+
+#edit_profile_main {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 323px;
+    margin-top: 40px;
+}
+
+#name_and_passwords h4,#delete_account h4 {
+    color: rgb(108 108 108);
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+    margin-bottom: 25px;
+
+}
+#delete_account{
+    margin-top: 50px;
+}
+#name_and_passwords{
+    border-bottom: 1px solid #d2d2d2;
+    padding-bottom: 50px;
+    padding-right: 45%;
+}
+#edit_name,#edit_password {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#edit_name div,#edit_password div {
+    display: flex;
+    flex-direction: column;
+    margin-right: 25px;
+}
+
+#edit_name div>label, #edit_password div>label {
+    color: rgb(64 64 64);
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.input_edit_p {
+    outline: none;
+    border: none;
+    /* width: 479px;
+    height: 40px; */
+    margin-bottom: 16px;
+    font-family: 'Sans Serif', sans-serif;
+    font-weight: 500;
+    padding: 12px 15px;
+    color: #3a3a3a;
+    font-size: 16px;
+    border-radius: 18px;
+    background-color: #f1f1f1;
+}
+
+.input_edit_p::placeholder {
+    color: #9d9d9d;
+    font-family: 'Sans Serif', sans-serif;
+    font-weight: 500;
+}
+
+#edit_name button, #edit_password button {
+    border-radius: 50px;
+    width: 106px;
+    background-color: #ba87fc;
+    color: white;
+    outline: none;
+    border: none;
+    font-size: 17px;
+    height: 38px;
+    margin-top: 24px;
+    cursor: pointer;
+}
+#edit_password{
+    margin-top: 30px;
+}
+#delete{
+    padding: 15px 45px;
+    background-color: red;
+    color: white;
+    font-family: 'Sans Serif', sans-serif;
+    text-decoration: none;
+    margin-top: 30px;
+    border-radius: 30px;
+    font-size: 18px;
+}
+#delete_account h4{
+    margin-bottom: 50px;
+}
