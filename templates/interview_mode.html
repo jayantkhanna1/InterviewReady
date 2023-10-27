@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>InterviewReady</title>
+
+    <!-- Links -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" id="light_css">
+    <link rel="stylesheet" href="{% static 'css/dark_index.css' %}" id="dark_css" disabled>
+    <link rel="stylesheet" href="{% static 'css/toast.css' %}" id="toastcss">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+</head>
+
+<body>
+    <section id="header">
+        <p>Interview <span class="logo_color">Ready<span style="font-size: 20px;">.ai</span></span></p>
+        <div id="right_side_options">
+            <img onclick="changeCss('dark')" src="{% static 'images/moon.png' %}" alt="" id="moon">
+            <img onclick="changeCss('light')" src="{% static 'images/sun.png' %}" alt="" id="sun">
+            <div id="user_profile">
+                <img onclick="openUserModal()" src="{% static 'images/light_user.png' %}" alt="" id="user_img_dark">
+                <img onclick="openUserModal()" src="{% static 'images/dark_user.png' %}" alt="" id="user_img_light">
+            </div>
+        </div>
+    </section>
+    
+    <section id="interview_mode">
+        <h2>Select a plan</h2>
+
+        <div id="two_mode_options">
+            <div class="mode_option" id="free_mode">
+                <img src="{% static 'images/daniel.png' %}" alt="" class="above_image">
+                <p class="daniel_chooses">Daniel chooses</p>
+                <h3 class="heading_mode">Free Plan</h3>
+                <div class="point">
+                    <img src="{% static 'images/tick.png' %}" alt="" class="tick_or_cross">
+                    <p>Multiple Real Interview questions</p>
+                </div>
+                <div class="point">
+                    <img src="{% static 'images/tick.png' %}" alt="" class="tick_or_cross">
+                    <p>Insights on every Answer</p>
+                </div>
+                <div class="point">
+                    <img src="{% static 'images/cross.png' %}" alt="" class="tick_or_cross">
+                    <p>Voice accepted answers</p>
+                </div>
+                <div class="point">
+                    <img src="{% static 'images/cross.png' %}" alt="" class="tick_or_cross">
+                    <p>Real-world call like UI</p>
+                </div>
+                <div class="point last_point">
+                    <img src="{% static 'images/cross.png' %}" alt="" class="tick_or_cross">
+                    <p>Cross questioning</p>
+                </div>
+                <a href="interview_begin" class="get_started">Proceed</a>
+            </div>
+
+            <div class="mode_option" id="paid_mode">
+                <img src="{% static 'images/cooler_daniel.png' %}" alt="" class="above_image">
+                <p class="daniel_chooses">The cooler Daniel chooses</p>
+                <h3 class="heading_mode">Paid Plan</h3>
+                <div class="point">
+                    <img src="{% static 'images/tick.png' %}" alt="" class="tick_or_cross">
+                    <p>Multiple Real Interview questions</p>
+                </div>
+                <div class="point">
+                    <img src="{% static 'images/tick.png' %}" alt="" class="tick_or_cross">
+                    <p>Insights on every Answer</p>
+                </div>
+                <div class="point">
+                    <img src="{% static 'images/tick.png' %}" alt="" class="tick_or_cross">
+                    <p>Voice accepted answers</p>
+                </div>
+                <div class="point">
+                    <img src="{% static 'images/tick.png' %}" alt="" class="tick_or_cross">
+                    <p>Real-world call like UI</p>
+                </div>
+                <div class="point last_point">
+                    <img src="{% static 'images/tick.png' %}" alt="" class="tick_or_cross">
+                    <p>Cross questioning</p>
+                </div>
+                <a href="no" class="get_started">Proceed</a>
+            </div>
+        </div>
+    </section>
+
+
+    <div id="toast">
+        <div id="img">
+            <img id="right_img" src="{% static 'images/wrong.svg' %}" alt="" />
+        </div>
+        <div id="desc"></div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div id="modal_outer">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close">&times;</span>
+                    <img src="{% static 'images/def_user.png' %}" alt="" id="user_img">
+                    <p id="free_credits">{{user.free_trials_left}}/3 pro interviews left</p>
+                    <!-- <p id="free_credits" class="modal_written">2/5 pro interviews left</p> -->
+                    <p id="user_email" class="modal_written">{{user.email}}</p>
+                    <a href="" id="usersettings" class="modal_button">Edit Profile</a>
+                    <a href="" id="logout" class="modal_button">Logout</a>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <input type="hidden" name="" id="error_if_any" readonly value="{{data}}">
+    <script src="{% static 'js/toast.js' %}"></script>
+
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/mode.js' %}"></script>
+    <script src="{% static 'js/userModal.js' %}"></script>
+
+
+</body>
+
+</html>

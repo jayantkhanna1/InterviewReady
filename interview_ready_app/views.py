@@ -98,6 +98,11 @@ def interview_information(request):
     else:
         difficulty = "expert"
 
+    request.session['job_desc'] = job_desc
+    request.session['interview_type'] = interview_type
+    request.session['difficulty'] = difficulty
+    request.session['special_tags'] = special_tags
+
     # creating initial prompt
     if interview_type == "background":
         initial_prompt = "Using this candidates resume give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
@@ -109,14 +114,20 @@ def interview_information(request):
         initial_prompt = "Using this job description give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
         free_prompt = initial_prompt + "\n\n" + job_desc
     
-    api_key = os.getenv('CHATGPT_KEY')
-    # result,any_error = chatgpt(api_key,free_prompt)
-    # if any_error:
-    #     url = reverse('home') + '?error=Internal Server Error'
-    #     return redirect(url)
-    # request.session['questions_interview_ready'] = result  
+    api_key = os.getenv('CHATGPT_KEY') 
     request.session['interview_ready_free_prompt'] = free_prompt
-    return redirect('interview_mode')
+    try:
+        user = User.objects.get(private_key=request.session['InterviewReady_privateToken'])
+        if user.free_trials_left > 0:
+            user.free_trials_left-=1
+            user.save()
+            return redirect('interview_begin_premium')
+        else:
+            return redirect('interview_mode')
+    except:
+        url = reverse('login') + '?error=Please Login first'
+        return redirect(url)
+    
 
 def remove(string,substring):
     result = ""
@@ -126,6 +137,8 @@ def remove(string,substring):
     return result
 
 def interview_begin(request):
+    # change as now we need to use prompt to generate questions here and also use regeneration if any error occurs
+    
     if "questions_interview_ready" in request.session:
         questions = request.session['questions_interview_ready']
         final_questions = []
@@ -558,5 +571,21 @@ def otp_verify(request):
         return redirect(url)
     
 def interview_mode(request):
+    # user login in required
+    if not user_logged_in(request):
+        url = reverse('login')
+        return redirect(url)
     return render(request,'interview_mode.html')
+    
+def user_logged_in(request):
+    if "InterviewReady_privateToken" in request.session:
+        private_token = request.session['InterviewReady_privateToken']
+        if User.objects.filter(private_key=private_token).exists():
+            return True
+        else:
+            return False
+    else:
+        return False
 
+def interview_begin_premium(request):
+    return render(request,'interview_begin_premium.html')

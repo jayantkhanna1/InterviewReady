@@ -571,3 +571,90 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+/* Interview mode styling */
+#interview_mode{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Sans Serif', sans-serif;
+    flex-direction: column;
+    margin-top: 70px;
+}
+#interview_mode h2{
+    color: #989898;
+    font-weight: 400;
+    font-size: 30px;
+}
+#two_mode_options{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 190px;
+    width: 48%;
+}
+.above_image{
+    position: absolute;
+    top: -149px;
+    width: 150px;
+    left: 31%;
+}
+.mode_option{
+    background-color: #ffffff;
+    height: 410px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    min-width: 300px;
+    padding: 42px;
+    position: relative;
+}
+.point{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.tick_or_cross{
+    width: 30px;
+    margin-right: 25px;
+
+}
+.daniel_chooses{
+    color: #6c6c6c;
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
+.heading_mode{
+    color: #ba87fc;
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 45px;
+    margin-top: 1rem;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.point p{
+    color: rgb(22, 22, 22);
+    font-family: 'Sans Serif', sans-serif;
+    font-size: 18px;
+
+}
+.get_started{
+    text-decoration: none;
+    padding: 12px 15px;
+    color: #ba87fc;
+    border: 1px solid #ba87fc;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    transition: all 0.3s ease-in-out;
+}
+.get_started:hover{
+    background-color: #ba87fc;
+    color: white;
+}
+.last_point{
+    margin-bottom: 60px;
+}
