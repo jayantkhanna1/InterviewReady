@@ -17,3 +17,4 @@ for (i = 0; i < acc.length; i++) {
     });
 }
 
+// setting default mode as dark mode

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>InterviewReady</title>
+
+    <!-- Links -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" id="light_css">
+    <link rel="stylesheet" href="{% static 'css/dark_index.css' %}" id="dark_css" disabled>
+    <link rel="stylesheet" href="{% static 'css/toast.css' %}" id="toastcss">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+</head>
+
+<body>
+    {%include 'header.html'%}
+    {%block content2%}
+    {%endblock%}
+
+    <div id="toast">
+        <div id="img">
+            <img id="right_img" src="{% static 'images/wrong.svg' %}" alt="" />
+        </div>
+        <div id="desc"></div>
+    </div>
+
+    {%include 'modal.html'%}
+    {%block content1%}
+    {%endblock%}
+
+    <input type="hidden" name="" id="error_if_any" readonly value="{{data}}">
+    <script src="{% static 'js/toast.js' %}"></script>
+
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/mode.js' %}"></script>
+    <script src="{% static 'js/userModal.js' %}"></script>
+
+
+</body>
+
+</html>

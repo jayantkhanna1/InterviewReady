@@ -316,6 +316,12 @@ body {
     padding: 11px 27px;
     margin-left: 20px;
     font-family: 'Sans Serif', sans-serif;
+    transition: 0.3s all ease-in-out;
+}
+
+#login:hover{
+    background-color: #ba87fc;
+    color: white;
 }
 
 #login_form {
@@ -832,4 +838,7 @@ body {
 }
 .last_point{
     margin-bottom: 60px;
+}
+.faq_a{
+    color: #ba87fc;
 }

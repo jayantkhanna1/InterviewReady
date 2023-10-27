@@ -1,13 +1,15 @@
 
 // get detfault mode
 var mode = localStorage.getItem('interview_ready_mode');
+console.log(mode)
 // check if mode is dark
-if (mode == 'dark'){
+if (mode == 'dark' || mode == null){
     changeCss('dark');
 }
 else{
     changeCss('light');
 }
+
 
 function changeCss(mode){
     if (mode == 'dark'){

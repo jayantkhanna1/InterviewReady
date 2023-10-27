@@ -572,16 +572,17 @@ def otp_verify(request):
     
 def interview_mode(request):
     # user login in required
-    if not user_logged_in(request):
+    user = user_logged_in(request)
+    if not user:
         url = reverse('login')
         return redirect(url)
-    return render(request,'interview_mode.html')
+    return render(request,'interview_mode.html',{'user':user,'logged_in':True})
     
 def user_logged_in(request):
     if "InterviewReady_privateToken" in request.session:
         private_token = request.session['InterviewReady_privateToken']
         if User.objects.filter(private_key=private_token).exists():
-            return True
+            return User.objects.get(private_key=private_token)
         else:
             return False
     else:
@@ -589,3 +590,28 @@ def user_logged_in(request):
 
 def interview_begin_premium(request):
     return render(request,'interview_begin_premium.html')
+
+def logout(request):
+    try:
+        del request.session['InterviewReady_privateToken']
+    except:
+        pass
+    return redirect('home')
+
+def edit_profile(request):
+    user = user_logged_in(request)
+    if not user:
+        url = reverse('login')
+        return redirect(url)
+    return render(request,'edit_profile.html',{'user':user,'logged_in':True})
+
+
+
+
+
+
+
+
+
+
+

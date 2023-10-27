@@ -1,0 +1,20 @@
+{%load static%}
+{%block content2%}
+<section id="header">
+    <p>Interview <span class="logo_color">Ready<span style="font-size: 20px;">.ai</span></span></p>
+    <div id="right_side_options">
+        <img onclick="changeCss('dark')" src="{% static 'images/moon.png' %}" alt="" id="moon">
+        <img onclick="changeCss('light')" src="{% static 'images/sun.png' %}" alt="" id="sun">
+        {% if not logged_in %}
+        <div id="signin">
+            <a href="login" id="login">Sign in</a>
+        </div>
+        {% else %}
+        <div id="user_profile">
+            <img onclick="openUserModal()" src="{% static 'images/light_user.png' %}" alt="" id="user_img_dark">
+            <img onclick="openUserModal()" src="{% static 'images/dark_user.png' %}" alt="" id="user_img_light">
+        </div>
+        {% endif %}
+    </div>
+</section>
+{%endblock%}

@@ -1,0 +1,19 @@
+{%load static%}
+{%block content1%}
+<div id="myModal" class="modal">
+    <div id="modal_outer">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span class="close">&times;</span>
+                <img src="{% static 'images/def_user.png' %}" alt="" id="user_img">
+                <p id="free_credits">{{user.free_trials_left}}/3 pro interviews left</p>
+                <!-- <p id="free_credits" class="modal_written">2/5 pro interviews left</p> -->
+                <p id="user_email" class="modal_written">{{user.email}}</p>
+                <a href="edit_profile" id="usersettings" class="modal_button">Edit Profile</a>
+                <a href="logout" id="logout" class="modal_button">Logout</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{%endblock%}
