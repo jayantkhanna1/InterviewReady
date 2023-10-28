@@ -458,7 +458,7 @@ body{
     margin: auto;
     padding: 0;
     width: 23%;
-    right: 50px;
+    right: 37px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -709,6 +709,7 @@ body{
     font-family: 'Sans Serif', sans-serif;
     padding-left: 0;
     font-size: 18px;
+    padding-right: 0;
     font-weight: 600;
 }
 
@@ -810,4 +811,39 @@ body{
 }
 #delete_account h4{
     margin-bottom: 50px;
+}
+/* History styling */
+#history_main{
+    display: flex;
+    align-content: center;
+    width: 80%;
+    margin-left: 16.5%;
+    margin-top: 40px;
+}
+th,td{
+    text-align: left;
+    color: rgb(0, 0, 0);
+    width: 175px;
+    border-top: 1px solid #dee2e6;
+    padding: 25px;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+table{
+    border-collapse: collapse;
+    font-family: 'Sans Serif', sans-serif;
+}
+tr:nth-child(even){
+    background-color: #f3f2f3;
+}
+tr:nth-child(odd){
+    background-color: #fefeff;
+}
+#heading_tr{
+    cursor: default;
+    background-color: #f3f2f3;
+}
+tr{
+    cursor: pointer;
 }

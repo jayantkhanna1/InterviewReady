@@ -11,6 +11,7 @@ import openai
 import json
 from django.urls import reverse
 import whisper
+from datetime import datetime
 
 
 def index(request):
@@ -69,7 +70,13 @@ def chatgpt(api_key,prompt):
         return e,True
 
 def interview_information(request):
+    user=user_logged_in(request)
+    if user is None:
+        url = reverse('login')
+        return redirect(url)
+    
     job_desc = request.POST['job_description']
+    job_desc_old = job_desc
     interview_type = request.POST['interview_type']
     difficulty = request.POST['difficulty']
     special_tags = None
@@ -98,10 +105,7 @@ def interview_information(request):
     else:
         difficulty = "expert"
 
-    request.session['job_desc'] = job_desc
-    request.session['interview_type'] = interview_type
-    request.session['difficulty'] = difficulty
-    request.session['special_tags'] = special_tags
+    
 
     # creating initial prompt
     if interview_type == "background":
@@ -113,11 +117,10 @@ def interview_information(request):
     else:
         initial_prompt = "Using this job description give exactly 7 question for a "+interview_type+" interview of a "+difficulty+" level.  Give these questions in python list format:['ques','ques2'...]"
         free_prompt = initial_prompt + "\n\n" + job_desc
-    
-    api_key = os.getenv('CHATGPT_KEY') 
-    request.session['interview_ready_free_prompt'] = free_prompt
+    current_date_time = datetime.now()
+    history = History.objects.create(user=user,job_description=job_desc_old,special_words=special_tags,interview_type=interview_type,interview_difficulty=difficulty,prompt = free_prompt,interview_date=current_date_time)
+    history.save()
     try:
-        user = User.objects.get(private_key=request.session['InterviewReady_privateToken'])
         if user.free_trials_left > 0:
             user.free_trials_left-=1
             user.save()
@@ -638,7 +641,17 @@ def deleteAccount(request):
     user.delete()
     return redirect('home')
 
-
+def history(request):
+    user = user_logged_in(request)
+    if not user:
+        url = reverse('login')
+        return redirect(url)
+    histories = History.objects.filter(user=user)
+    for x in histories:
+        words_in_job_desc = x.job_description.split(" ")
+        if len(words_in_job_desc) > 5:
+            x.job_description = ' '.join(words_in_job_desc[:5]) + '...'
+    return render(request,'history.html',{'histories':histories,'user':user,'logged_in':True})
 
 
 

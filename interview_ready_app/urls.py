@@ -26,7 +26,8 @@ urlpatterns = [
     path('edit_profile',views.edit_profile,name='edit_profile'),
     path('changeName',views.changeName,name="changeName"),
     path('changePassword',views.changePassword,name = "changePassword"),
-    path('deleteAccount',views.deleteAccount,name="deleteAccount")
+    path('deleteAccount',views.deleteAccount,name="deleteAccount"),
+    path('history',views.history,name="history"),
 
 
 ]
