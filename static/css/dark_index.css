@@ -1015,6 +1015,15 @@ body {
 }
 
 /* History styling */
+.small_cell{
+    width: 75px;
+}
+.completed{
+    color: rgb(97, 255, 79);
+}
+.not_completed{
+    color: red;
+}
 #history_main{
     display: flex;
     align-content: center;
@@ -1236,4 +1245,244 @@ tr{
     justify-content: center;
     align-items: center;
     height: 40vw;
+}
+
+
+/* interview result free styling */
+.progress-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.progress-bar-overall{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, white 79%, transparent 80% 100%),conic-gradient(#ffcf5e  75%, #ffefc8 0);
+}
+.progress-bar::before,.progress-bar-overall::before {
+    content: attr(data-before);
+    font-family: 'Sans Serif', sans-serif;
+    color: white;
+}
+#overallscore,#skeleton_overallscore{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+#circular_score,#skeleton_circular_score{
+    margin-top: 75px;
+}
+#score_breaking,#skeleton_score_breaking{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+}
+.circle_outer,.circle_outer_scorebreak{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.circle_outer h2{
+    font-family: 'Sans Serif', sans-serif;;
+    font-size: 24px;
+    color: #c8c8c8;
+    font-weight: 100;
+    margin-top: 20px;
+}
+.circle_outer_scorebreak h2{
+    font-family: 'Sans Serif', sans-serif;;
+    font-size: 18px;
+    color: #c8c8c8;
+    font-weight: 100;
+    margin-top: 20px;
+}
+#grammar_score_inner{
+    background: radial-gradient(closest-side, white 79%, transparent 80% 100%),conic-gradient(#57CDFD 75%, #d5f4ff 0);
+}
+#clarity_score_inner{
+    background: radial-gradient(closest-side, white 79%, transparent 80% 100%),conic-gradient(#9CA7EB 75%, #d8ddff 0);
+}
+#confidence_score_inner{
+    background: radial-gradient(closest-side, white 79%, transparent 80% 100%),conic-gradient(#d19ceb 75%, rgb(221, 225, 255) 0);
+}
+#interviewer_score_inner{
+    background: radial-gradient(closest-side, white 79%, transparent 80% 100%),conic-gradient(#FC8ECB 75%, #ffd4ec 0);
+}
+#per_ques_insights{
+    margin-top: 50px;
+}
+#interview{
+    margin-top: 40px !important;
+    display: flex !important;
+}
+.scores_insights{
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    margin-top: 25px;
+    align-items: center;
+}
+.grammar_score_outer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 25px;
+    border: 2px solid #57CDFD;
+    border-radius: 15px;
+    padding: 5px 15px;
+}
+.score_inner_score{
+    margin-right: 5px;
+    font-family: 'Sans Serif', sans-serif;;
+    color: #c8c8c8;
+}
+.score_tag{
+    font-family: 'Sans Serif', sans-serif;;
+    color: #c8c8c8;
+}
+.dot_1{
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-right: 5px;
+    background-color: #57CDFD;
+}
+.clarity_score_outer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 25px;
+    border: 2px solid #9CA7EB;
+    border-radius: 15px;
+    padding: 5px 15px;
+}
+.confidence_score_outer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 25px;
+    border: 2px solid #d19ceb;
+    border-radius: 15px;
+    padding: 5px 15px;
+}
+.interviewer_score_outer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 25px;
+    border: 2px solid #FC8ECB;
+    border-radius: 15px;
+    padding: 5px 15px;
+}
+.dot_2{
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-right: 5px;
+    background-color: #9CA7EB;
+}
+.dot_3{
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-right: 5px;
+    background-color: #d19ceb;
+}
+.dot_4{
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-right: 5px;
+    background-color: #FC8ECB;
+}
+.answer{
+    font-family: 'Sans Serif', sans-serif;;
+    color: #c8c8c8;
+    font-size: 16px;
+}
+#subheading,#skeleton_subheading{
+    margin-left: 13.5%;
+    margin-top: 50px;
+}
+#subheading h3,#subheading_insights h3,#skeleton_subheading_insights h3,#skeleton_subheading h3{
+    font-family: 'Sans Serif', sans-serif;;
+    font-size: 28px;
+    color: #ffffff;
+    font-weight: 100;
+    margin-top: 20px;
+}
+#subheading_insights,#skeleton_subheading_insights{
+    margin-left: 13.5%;
+    margin-top: 100px !important;
+}
+.advice{
+    font-family: 'Sans Serif', sans-serif;;
+    font-size: 16px;
+    color: #e7e7e7;
+    font-weight: 100;
+    /* margin-top: 20px; */
+    background-color: #4f4f4f;
+    padding: 15px 20px;
+    border-radius: 8px;
+    width: 91%;
+    margin-top: 30px;
+}
+#skeleton_data{
+    display: none;
+}
+/* #main_data{
+    display: none;
+} */
+#skeleton_clarity_score_inner,#skeleton_confidence_score_inner,#skeleton_interviewer_score_inner,#skeleton_grammar_score_inner,#skeleton_overallscore_inner{
+    background: radial-gradient(closest-side, white 79%, transparent 80% 100%),conic-gradient(#c4c4c4 75%, rgb(226 226 226) 0);
+}
+
+.background-masker {
+    background-color: #fff;
+}
+
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -800px 0
+    }
+    100% {
+        background-position: 800px 0
+    }
+}
+
+.animated-background {
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background-color: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #bbbbbb 18%, #eeeeee 33%);
+    background-size: 800px 104px;
+    height: 200px;
+    border-radius: 12px;
+    width: 95%;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+#skeleton_data{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    margin-top: 70px;
 }

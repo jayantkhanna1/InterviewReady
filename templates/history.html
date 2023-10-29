@@ -42,13 +42,13 @@
         <table class="table table-striped table-dark">
             <thead>
                 <tr id="heading_tr">
-                    <th scope="col">#</th>
+                    <th scope="col" class="small_cell">#</th>
                     <th scope="col">Job Description</th>
                     <th scope="col">Special Words</th>
                     <th scope="col">Interview Type</th>
                     <th scope="col">Interview Difficulty</th>
                     <th scope="col">Interview Date</th>
-                    <th scope="col">Interview Duration</th>
+                    <!-- <th scope="col">Interview Duration</th> -->
                     <th scope="col">Interview Completed</th>
                     <th scope="col">Interview Score</th>
                 </tr>
@@ -56,7 +56,7 @@
             <tbody>
                 {% for history in histories %}
                 <tr onclick="openHistory('{{history.id}}')">
-                    <th scope="row">{{ forloop.counter }}</th>
+                    <th scope="row"  class="small_cell">{{ forloop.counter }}</th>
                     <td>{{history.job_description}}</td>
 
                     {% if history.special_words == '' %}
@@ -76,11 +76,11 @@
                     {% endif %}
                     <td>{{history.interview_difficulty}}</td>
                     <td>{{history.interview_date}}</td>
-                    <td>{{history.interview_duration}}</td>
+                    <!-- <td>{{history.interview_duration}}</td> -->
                     {% if history.interview_completed == True%}
-                    <td style="color: rgb(97, 255, 79);">Completed</td>
+                    <td class="completed">Completed</td>
                     {% else %}
-                    <td style="color: red;">Not Completed</td>
+                    <td class="not_completed">Not Completed</td>
                     {% endif %}
                     <td>{{history.overall_score}} / 100</td>
                 </tr>

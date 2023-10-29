@@ -400,7 +400,8 @@ def show_interview_result_free(request):
         overall_confidence = history.overall_confidence
         overall_answer_score_based_on_question_according_to_interviewer = history.overall_answer_score_based_on_question_according_to_interviewer
         ques_ans_pair = history.interview_result
-        return render(request,'show_interview_result_free.html',{'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer),'ques_ans_pair':ques_ans_pair})
+
+        return render(request,'show_interview_result_free.html',{'user':user,'logged_in':True,'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer),'ques_ans_pair':ques_ans_pair})
     else:
         url = reverse('home') + '?error=Interview not completed'
         return redirect(url)
@@ -681,6 +682,9 @@ def history(request):
         words_in_job_desc = x.job_description.split(" ")
         if len(words_in_job_desc) > 5:
             x.job_description = ' '.join(words_in_job_desc[:5]) + '...'
+    # reverse histories
+    histories = histories[::-1]
+    
     return render(request,'history.html',{'histories':histories,'user':user,'logged_in':True})
 
 
