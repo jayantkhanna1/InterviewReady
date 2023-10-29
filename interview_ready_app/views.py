@@ -50,20 +50,16 @@ def interview_info(request):
 def chatgpt(api_key,prompt):
     try:
         openai.api_key = api_key
-        message = prompt
         messages = [
             {
                 "role": "system",
                 'content' : "Think like an interviewer and evaluate a candidate"
 
             },
-            {"role": "user", "content": message
+            {"role": "user", "content": prompt
              }]
         chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
-        print(chat)
         reply = chat.choices[0].message.content 
-        print(f"ChatGPT: {reply}") 
-        # message.append({"role": "assistant", "content": reply
         return reply, False
     except Exception as e:
         print(e)
@@ -141,53 +137,82 @@ def remove(string,substring):
 
 def interview_begin(request):
     # change as now we need to use prompt to generate questions here and also use regeneration if any error occurs
-    
-    if "questions_interview_ready" in request.session:
-        questions = request.session['questions_interview_ready']
-        final_questions = []
-        if "[" in questions:
-            new_question = ""
-            for x in questions:
-                if x == "[":
-                    flag = 1
+    user = user_logged_in(request)
+    if user is None:
+        url = reverse('login')
+        return redirect(url)
+    # get last history object of the user
+    history = History.objects.filter(user=user).last()
+    prompt = history.prompt
+    api_key = os.environ.get('CHATGPT_KEY')
+    questions,error = chatgpt(api_key,prompt)
+    if error:
+        url = reverse('home') + '?error=ChatGPT Key Expired'
+        return redirect(url)
+    print(questions)
+    final_questions = []
+    if "[" in questions:
+        new_question = ""
+        for x in questions:
+            if x == "[":
+                flag = 1
 
-                elif x == "]":
-                    flag = 0
+            elif x == "]":
+                flag = 0
 
-                else:
-                    pass
+            else:
+                pass
 
-                if flag == 1:
-                    new_question +=x
-            # remove [ in string if it exists]
-            new_question = remove(new_question, "[")
-            new_question = new_question.split(',')
-            final_questions = new_question
+            if flag == 1:
+                new_question +=x
+        # remove [ in string if it exists]
+        new_question = remove(new_question, "[")
+        new_question = new_question.split(',')
+        final_questions = new_question
 
-        else:
-        # another flow 
-            questions = questions.split("\n")
-            final_questions = []
-            for question in questions:
-                # if question has question number delete it 
-                #if question[0].isdigit():
-                 #   question = question[2:]
-                final_questions.append(question)
-
-
-        print(final_questions)
-        final_final_questions = []
-        for x in final_questions:
-            if '"' in x:
-                x = x.replace('"','')
-            if "'" in x:
-                x = x.replace("'",'')
-            final_final_questions.append(x)
-
-        return render(request,'interview_begin.html',{'questions':final_final_questions})
     else:
-        return redirect('home')
+    # another flow 
+        questions = questions.split("\n")
+        final_questions = []
+        for question in questions:
+            # if question has question number delete it 
+            #if question[0].isdigit():
+                #   question = question[2:]
+            final_questions.append(question)
+
+
+    print(final_questions)
+    final_final_questions = []
+    for x in final_questions:
+        if '"' in x:
+            x = x.replace('"','')
+        if "'" in x:
+            x = x.replace("'",'')
+        temp_jso = {
+            'question' : x,
+            'answer' : "",
+            'confidence' : {}
+        }
+        final_final_questions.append(temp_jso)
     
+    history.interview_result = final_final_questions
+    history.save()
+    return redirect('interview_begin_free')
+    # return render(request,'interview_begin.html',{'questions':final_final_questions})
+    
+def interview_begin_free(request):
+    user = user_logged_in(request)
+    if not user:
+        url = reverse('login')
+        return redirect(url)
+    history = History.objects.filter(user=user_logged_in(request)).last()
+    questions = history.interview_result
+    final_list = []
+    for x in questions:
+        final_list.append(x['question'])
+    print(user)
+    return render(request,'interview_begin.html',{'questions':final_list,'user':user,'logged_in':True})
+
 def asr(request):
     audio_file = request.FILES['audio']
 
@@ -214,21 +239,17 @@ def get_result_for_one_pair(request):
     question = request.POST['question']
     answer = request.POST['answer']
     prompt = 'Interview Question : '+str(question)+'\nCandidate Answer: '+str(answer)+'\n\nIn Json format tell me grammar, clarity, confidence, score that interviewer would give to the answer and some comments on answer to improve chances of getting selected. If not sure about something mark it as 0. All marks should be between 0 to 100. \nExample: {"grammar" : 40,"clarity" : 20,"confidence" : 0,"answer_score_based_on_question_according_to_interviewer" : 0,"advice_to_improve_answer" : "Improve your..."}.'
-    if "chatgpt_key_interview_ready" not in request.session:
-        return redirect('home')
-    api_key = request.session['chatgpt_key_interview_ready']
+    api_key = os.environ.get('CHATGPT_KEY')
     result,any_error = chatgpt(api_key,prompt)
     if any_error:
-        url = reverse('home') + '?error=ChatGPT Key Expired'
-        return redirect(url)
+        return JsonResponse({'result': 'Error Occured'})
     return JsonResponse({'result': result})
 
 def save_interview_result(request):
     question_answer_pair = request.POST['question_answer_pair']
     print(question_answer_pair)
-    request.session['question_answer_pair'] = question_answer_pair
+    
     try:
-        question_answer_pair = request.session['question_answer_pair']
         print(question_answer_pair)
         
         # question_answer_pair = question_answer_pair.replace("'",'"')
@@ -262,8 +283,8 @@ def save_interview_result(request):
                 'question' : x["question"],
                 'answer' : x['answer'],
                 "grammar_score" : y["grammar"],
-                "clarity_score" : y["confidence"],
-                "confidence_score" : y["clarity"]
+                "clarity_score" : y["clarity"],
+                "confidence_score" : y["confidence"]
             }
             if "advice_to_improve_answer" in y and y["advice_to_improve_answer"] != "":
                 temp_jso["advice"] = y["advice_to_improve_answer"]
@@ -279,20 +300,21 @@ def save_interview_result(request):
         overall_confidence=overall_confidence/7
         overall_answer_score_based_on_question_according_to_interviewer = overall_answer_score_based_on_question_according_to_interviewer/7
         overall_score=(overall_grammar + overall_confidence + overall_clarity + (10*overall_answer_score_based_on_question_according_to_interviewer))/13
-        request.session['overall_score'] = overall_score
-        request.session['overall_grammar'] = overall_grammar
-        request.session['overall_clarity'] = overall_clarity
-        request.session['overall_confidence'] = overall_confidence
-        request.session['overall_answer_score_based_on_question_according_to_interviewer'] = overall_answer_score_based_on_question_according_to_interviewer
-        request.session['ques_ans_pair'] = ques_ans_pair
+        history = History.objects.filter(user=user_logged_in(request)).last()
+        history.overall_score = overall_score
+        history.overall_grammar = overall_grammar
+        history.overall_clarity = overall_clarity
+        history.overall_confidence = overall_confidence
+        history.overall_answer_score_based_on_question_according_to_interviewer = overall_answer_score_based_on_question_according_to_interviewer
+        history.interview_result = ques_ans_pair
+        history.interview_completed = True
+        history.save()
         return JsonResponse({'question_answer_pair':ques_ans_pair,'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer)})
     except:
         # Calling chatgpt to fix the json
-        question_answer_pair = request.session['question_answer_pair']
+        
         prompt = "Fix this JSON. Only give correct JSON answer : \n" + question_answer_pair
-        if "chatgpt_key_interview_ready" not in request.session:
-            return redirect('home')
-        api_key = request.session['chatgpt_key_interview_ready']
+        api_key = os.environ.get('CHATGPT_KEY')
         result,any_error = chatgpt(api_key,prompt)
         if any_error:
             url = reverse('home') + '?error=ChatGPT Key Expired'
@@ -352,28 +374,36 @@ def save_interview_result(request):
         overall_confidence=overall_confidence/7
         overall_answer_score_based_on_question_according_to_interviewer = overall_answer_score_based_on_question_according_to_interviewer/7
         overall_score=(overall_grammar + overall_confidence + overall_clarity + (10*overall_answer_score_based_on_question_according_to_interviewer))/13
-        request.session['overall_score'] = overall_score
-        request.session['overall_grammar'] = overall_grammar
-        request.session['overall_clarity'] = overall_clarity
-        request.session['overall_confidence'] = overall_confidence
-        request.session['overall_answer_score_based_on_question_according_to_interviewer'] = overall_answer_score_based_on_question_according_to_interviewer
-        request.session['ques_ans_pair'] = ques_ans_pair
+        history = History.objects.filter(user=user_logged_in(request)).last()
+        history.overall_score = overall_score
+        history.overall_grammar = overall_grammar
+        history.overall_clarity = overall_clarity
+        history.overall_confidence = overall_confidence
+        history.overall_answer_score_based_on_question_according_to_interviewer = overall_answer_score_based_on_question_according_to_interviewer
+        history.interview_result = ques_ans_pair
+        history.interview_completed = True
+        history.save()
         return JsonResponse({'question_answer_pair':ques_ans_pair,'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer)})
     
 
-def show_interview_result(request):
-    if "overall_score" in request.session and "overall_grammar" in request.session and "overall_clarity" in request.session and "overall_confidence" in request.session and "overall_answer_score_based_on_question_according_to_interviewer" in request.session and "ques_ans_pair" in request.session:
-        overall_score = request.session['overall_score']
-        overall_grammar = request.session['overall_grammar']
-        overall_clarity = request.session['overall_clarity']
-        overall_confidence = request.session['overall_confidence']
-        overall_answer_score_based_on_question_according_to_interviewer = request.session['overall_answer_score_based_on_question_according_to_interviewer']
-        ques_ans_pair = request.session['ques_ans_pair']
-        return render(request,'show_interview_result.html',{'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer),'ques_ans_pair':ques_ans_pair})
-    else:
-        url = reverse('home') + '?error=Unable to show result'
+def show_interview_result_free(request):
+    user = user_logged_in(request)
+    if user is None:
+        url = reverse('login')
         return redirect(url)
-        
+    
+    history = History.objects.filter(user=user).last()
+    if history.interview_completed:
+        overall_score = history.overall_score
+        overall_grammar = history.overall_grammar
+        overall_clarity = history.overall_clarity
+        overall_confidence = history.overall_confidence
+        overall_answer_score_based_on_question_according_to_interviewer = history.overall_answer_score_based_on_question_according_to_interviewer
+        ques_ans_pair = history.interview_result
+        return render(request,'show_interview_result_free.html',{'overall_score':int(overall_score),'overall_grammar':int(overall_grammar),'overall_clarity':int(overall_clarity),'overall_confidence':int(overall_confidence),'overall_answer_score_based_on_question_according_to_interviewer':int(overall_answer_score_based_on_question_according_to_interviewer),'ques_ans_pair':ques_ans_pair})
+    else:
+        url = reverse('home') + '?error=Interview not completed'
+        return redirect(url)
 def evaluate_result(request):
     try:
         question_answer_pair = request.session['question_answer_pair']

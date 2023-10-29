@@ -22,3 +22,7 @@ class History(models.Model):
     interview_completed = models.BooleanField(default=False)
     overall_score = models.IntegerField(default=0)
     prompt = models.CharField(max_length=2000000,null=True,blank=True)
+    overall_grammar = models.IntegerField(default=0)
+    overall_clarity = models.IntegerField(default=0)
+    overall_confidence = models.IntegerField(default=0)
+    overall_answer_score_based_on_question_according_to_interviewer = models.IntegerField(default=0)

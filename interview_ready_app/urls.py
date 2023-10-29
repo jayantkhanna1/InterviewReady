@@ -13,7 +13,7 @@ urlpatterns = [
     path('asr',views.asr,name='asr'),
     path('getResultForOnePair',views.get_result_for_one_pair,name='getResultForOnePair'),
     path('saveInterviewResult',views.save_interview_result,name='saveInterviewResult'),
-    path('showInterviewResult',views.show_interview_result,name='showInterviewResult'),
+    path('showInterviewResultFree',views.show_interview_result_free,name='showInterviewResult'),
     path('evaluateResult',views.evaluate_result,name='evaluate_result'),
     path('login',views.login,name='login'),
     path('signup',views.signup,name='signup'),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('changePassword',views.changePassword,name = "changePassword"),
     path('deleteAccount',views.deleteAccount,name="deleteAccount"),
     path('history',views.history,name="history"),
+    path('interview_begin_free',views.interview_begin_free,name="interview_begin_free"),
 
 
 ]

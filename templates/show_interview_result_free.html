@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/toast.css' %}"  id="toastcss">
     <link rel="stylesheet" href="{% static 'css/interview_result.css' %}">
-    <link rel="stylesheet" href="{% static 'css/interview_begin.css' %}">
     <link rel="stylesheet" href="{% static 'css/toast.css' %}">
     <link rel = "icon" href =  "{% static 'images/logo.png' %}" type = "image/x-icon"> 
 </head>
@@ -47,12 +46,12 @@
                     </div>
                     <h2>Clarity</h2>
                 </div>
-                <div class="circle_outer_scorebreak">
+                <!-- <div class="circle_outer_scorebreak">
                     <div data-before="{{overall_confidence}}%" class="progress-bar" id="confidence_score_inner">
                         <progress value="{{overall_confidence}}" min="0" max="100" style="visibility:hidden;height:0;width:0;">{{overall_confidence}}%</progress>
                     </div>
                     <h2>Confidence</h2>
-                </div>
+                </div> -->
                 <div class="circle_outer_scorebreak">
                     <div data-before="{{overall_answer_score_based_on_question_according_to_interviewer}}%" class="progress-bar" id="interviewer_score_inner">
                         <progress value="{{overall_answer_score_based_on_question_according_to_interviewer}}" min="0" max="100" style="visibility:hidden;height:0;width:0;">{{overall_answer_score_based_on_question_according_to_interviewer}}%</progress>
@@ -81,11 +80,11 @@
                         <div class="score_inner_score">{{pair.clarity_score}}%</div>
                         <div class="score_tag">Clarity</div>
                     </div>
-                    <div class="confidence_score_outer">
+                    <!-- <div class="confidence_score_outer">
                         <div class="dot_3"></div>
                         <div class="score_inner_score">{{pair.confidence_score}}%</div>
                         <div class="score_tag">Confidence</div>
-                    </div>
+                    </div> -->
                     <div class="interviewer_score_outer">
                         <div class="dot_4"></div>
                         <div class="score_inner_score">{{pair.interviewer_score}}%</div>
