@@ -1,7 +1,7 @@
 # Interview Ready
 
 ## Overview
-Interview Ready is an AI-powered interview preparation tool designed to simulate real interview experiences. It serves as a clone of Google Interview, helping candidates practice by providing AI-generated questions based on the uploaded job description and submitted resume.
+Interview Ready is an AI-powered interview preparation tool designed to simulate real interview experiences. It serves as a clone of Google Interview, helping candidates practice by providing AI-generated questions based on the uploaded job description and submitted resume. 
 
 The platform features a **Google Meet-like** environment where users answer questions verbally, simulating a real interview. AI processes responses, evaluates performance, and dynamically adjusts follow-up questions, making the experience as close to an actual interview as possible.
 
@@ -38,11 +38,40 @@ The platform features a **Google Meet-like** environment where users answer ques
    - **Advice on improving your responses**.
 
 ## Installation & Usage
-(Include steps on how to install or access the platform, if applicable.)
-
-## Contribution
-(Provide details if you're open to contributions.)
-
-## License
-(Specify the licensing details, if any.)
+### Setting up the Django-based Application
+1. **Create a Virtual Environment:**
+   - For Unix/macOS:
+     ```sh
+     python3 -m venv venv
+     source venv/bin/activate
+     ```
+   - For Windows:
+     ```sh
+     python -m venv venv
+     venv\Scripts\activate
+     ```
+2. **Install Dependencies:**
+   ```sh
+   pip install -r requirements.txt
+   ```
+3. **Create and Configure Environment Variables:**
+   ```sh
+   cp example.env .env
+   ```
+   Edit the `.env` file to match your configuration.
+4. **Create a PostgreSQL Database:**
+   - Ensure PostgreSQL is installed and running.
+   - Create a new database
+5. **Apply Migrations:**
+   ```sh
+   python manage.py migrate
+   ```
+6. **Create a Superuser:**
+   ```sh
+   python manage.py createsuperuser
+   ```
+7. **Run the Development Server:**
+   ```sh
+   python manage.py runserver
+   ```
 
